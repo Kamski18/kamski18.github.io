@@ -1,6 +1,6 @@
 html {
     font-family: 'Quicksand', sans-serif;
-    background: linear-gradient(135deg, rgb(173, 216, 230), rgb(135, 206, 250)); /* Light blue gradient */
+    background: linear-gradient(135deg, rgb(173, 216, 230), rgb(135, 206, 250));
     color: #333;
     margin: 0;
     padding: 0;
@@ -29,11 +29,12 @@ body {
     max-width: 400px;
     width: 90%;
     margin: auto;
+    box-sizing: border-box;
 }
 
 input {
     border-radius: 7px;
-    border: 2px solid rgb(70, 130, 180); /* Steel blue border */
+    border: 2px solid rgb(70, 130, 180);
     padding: 10px;
     width: calc(100% - 22px); /* Account for padding and border */
     font-size: 1rem;
@@ -42,14 +43,14 @@ input {
 }
 
 input:focus {
-    border-color: rgb(30, 144, 255); /* Dodger blue on focus */
+    border-color: rgb(30, 144, 255);
     box-shadow: 0 0 5px rgba(30, 144, 255, 0.5);
 }
 
 button {
     border: none;
     border-radius: 13px;
-    background: linear-gradient(135deg, rgb(0, 102, 204), rgb(0, 153, 255)); /* Vibrant blue gradient */
+    background: linear-gradient(135deg, rgb(0, 102, 204), rgb(0, 153, 255));
     color: white;
     padding: 10px 20px;
     font-size: 1rem;
@@ -67,7 +68,7 @@ button:hover {
     border-radius: 13px;
     border: none;
     padding: 10px;
-    background-color: rgb(224, 238, 255); /* Light blue for dropdown */
+    background-color: rgb(224, 238, 255);
     font-size: 1rem;
     color: #333;
     outline: none;
@@ -75,6 +76,37 @@ button:hover {
 }
 
 #cboPep:hover, #cboPep:focus {
-    background-color: rgb(173, 216, 230); /* Sky blue hover and focus */
+    background-color: rgb(173, 216, 230);
     box-shadow: 0 0 5px rgba(30, 144, 255, 0.5);
+}
+
+/* Mobile-first responsiveness */
+@media (max-width: 768px) {
+    .hello {
+        padding: 1.5rem;
+        max-width: 90%;
+    }
+
+    input, button, #cboPep {
+        font-size: 0.9rem; /* Adjust font size for smaller screens */
+        padding: 8px 16px; /* Reduce padding */
+    }
+
+    button {
+        font-size: 0.9rem;
+        padding: 8px 16px;
+    }
+}
+
+/* Tablet responsiveness */
+@media (max-width: 1024px) {
+    .hello {
+        padding: 2rem;
+        max-width: 80%;
+    }
+
+    input, button, #cboPep {
+        font-size: 1rem; /* Standard font size for tablets */
+        padding: 10px 20px;
+    }
 }
