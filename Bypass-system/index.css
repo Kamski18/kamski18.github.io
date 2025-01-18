@@ -1,23 +1,22 @@
-html {
+html, body {
     font-family: 'Quicksand', sans-serif;
-    background: linear-gradient(135deg, rgb(173, 216, 230), rgb(135, 206, 250));
-    color: #333;
-    margin: 0;
-    padding: 0;
     height: 100%;
+    margin: 0;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    background: linear-gradient(135deg, rgb(173, 216, 230), rgb(135, 206, 250)); /* Light blue gradient */
+    color: #333;
+    padding: 0;
 }
 
-body {
-    margin: 0;
-    width: 100%;
-    min-height: 100vh;
+.content {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    text-align: center;
+    margin-bottom: 60px; /* Adjusted to make space for the credit */
 }
 
 .hello {
@@ -28,18 +27,20 @@ body {
     border-radius: 15px;
     max-width: 400px;
     width: 90%;
-    margin: auto;
     box-sizing: border-box;
 }
 
-input {
+input, button, #cboPep {
     border-radius: 7px;
-    border: 2px solid rgb(70, 130, 180);
     padding: 10px;
-    width: calc(100% - 22px); /* Account for padding and border */
+    width: calc(100% - 22px);
     font-size: 1rem;
     outline: none;
     transition: border-color 0.3s ease;
+}
+
+input {
+    border: 2px solid rgb(70, 130, 180);
 }
 
 input:focus {
@@ -49,11 +50,9 @@ input:focus {
 
 button {
     border: none;
-    border-radius: 13px;
     background: linear-gradient(135deg, rgb(0, 102, 204), rgb(0, 153, 255));
     color: white;
     padding: 10px 20px;
-    font-size: 1rem;
     cursor: pointer;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -65,14 +64,8 @@ button:hover {
 }
 
 #cboPep {
-    border-radius: 13px;
-    border: none;
-    padding: 10px;
     background-color: rgb(224, 238, 255);
-    font-size: 1rem;
-    color: #333;
-    outline: none;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    border: none;
 }
 
 #cboPep:hover, #cboPep:focus {
@@ -88,8 +81,8 @@ button:hover {
     }
 
     input, button, #cboPep {
-        font-size: 0.9rem; /* Adjust font size for smaller screens */
-        padding: 8px 16px; /* Reduce padding */
+        font-size: 0.9rem;
+        padding: 8px 16px;
     }
 
     button {
@@ -106,7 +99,15 @@ button:hover {
     }
 
     input, button, #cboPep {
-        font-size: 1rem; /* Standard font size for tablets */
+        font-size: 1rem;
         padding: 10px 20px;
     }
+}
+
+/* Credit at the bottom */
+.credit {
+    position: absolute;
+    bottom: 20px;
+    font-size: 0.8rem;
+    color: #666;
 }
