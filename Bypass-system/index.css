@@ -1,119 +1,80 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
-
-html, body {
+html {
+    font-family: 'Quicksand', sans-serif;
+    background: linear-gradient(135deg, rgb(245, 178, 178), rgb(255, 230, 230));
+    color: #333;
     margin: 0;
     padding: 0;
     height: 100%;
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
     display: flex;
-    align-items: center;
     justify-content: center;
-    overflow: hidden;
-    color: #f5f5f5;
+    align-items: center;
+}
+
+body {
+    margin: 0;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
 
 .hello {
     position: relative;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    padding: 2rem 3rem;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    text-align: center;
+    padding: 2rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    border-radius: 15px;
     max-width: 400px;
     width: 90%;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    margin: auto;
 }
 
-.hello::before {
-    content: '';
-    position: absolute;
-    top: -5%;
-    left: -5%;
-    width: 110%;
-    height: 110%;
-    background: linear-gradient(45deg, #ff6ec4, #7873f5, #23c4e7);
-    filter: blur(20px);
-    z-index: -1;
-    border-radius: inherit;
-    animation: pulse 6s infinite;
-}
-
-@keyframes pulse {
-    0%, 100% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.2);
-    }
-}
-
-input, #cboPep {
-    width: calc(100% - 20px);
-    padding: 12px 15px;
-    margin: 1rem 0;
-    border: none;
-    border-radius: 10px;
-    background: rgba(255, 255, 255, 0.2);
-    color: #f5f5f5;
+input {
+    border-radius: 7px;
+    border: 2px solid green;
+    padding: 10px;
+    width: calc(100% - 22px); /* Account for padding and border */
     font-size: 1rem;
     outline: none;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease-in-out;
+    transition: border-color 0.3s ease;
 }
 
-input:focus, #cboPep:focus {
-    background: rgba(255, 255, 255, 0.4);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+input:focus {
+    border-color: #ff6f61;
+    box-shadow: 0 0 5px rgba(255, 111, 97, 0.5);
 }
 
 button {
-    display: inline-block;
-    padding: 12px 25px;
-    margin-top: 1rem;
     border: none;
-    border-radius: 30px;
-    background: linear-gradient(135deg, #ff6ec4, #7873f5);
-    color: #fff;
-    font-size: 1.1rem;
-    font-weight: bold;
+    border-radius: 13px;
+    background: linear-gradient(135deg, rgb(193, 2, 138), rgb(255, 100, 200));
+    color: white;
+    padding: 10px 20px;
+    font-size: 1rem;
     cursor: pointer;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-    transition: all 0.4s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 button:hover {
-    transform: translateY(-3px) scale(1.1);
-    background: linear-gradient(135deg, #23c4e7, #7873f5);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
-}
-
-button:active {
-    transform: scale(1);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transform: scale(1.2);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
 #cboPep {
-    cursor: pointer;
-    appearance: none; /* Hide native dropdown */
-    background: rgba(255, 255, 255, 0.2) url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"%3E%3Cpath d="M7 10l5 5 5-5z"/%3E%3C/svg%3E') no-repeat right 1rem center;
-    background-size: 1rem;
+    border-radius: 13px;
+    border: none;
+    padding: 10px;
+    background-color: #f4f4f4;
+    font-size: 1rem;
+    color: #555;
+    outline: none;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-#cboPep:hover {
-    background-color: rgba(255, 255, 255, 0.4);
+#cboPep:hover, #cboPep:focus {
+    background-color: #ffefef;
+    box-shadow: 0 0 5px rgba(255, 111, 97, 0.5);
 }
-
-/* Add responsiveness */
-@media (max-width: 768px) {
-    .hello {
-        padding: 1.5rem 2rem;
-    }
-
-    input, #cboPep, button {
-        font-size: 0.9rem;
-    }
-}
-
