@@ -1,0 +1,80 @@
+html {
+    font-family: 'Quicksand', sans-serif;
+    background: linear-gradient(135deg, rgb(245, 178, 178), rgb(255, 230, 230));
+    color: #333;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+body {
+    margin: 0;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.hello {
+    position: relative;
+    padding: 2rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    border-radius: 15px;
+    max-width: 400px;
+    width: 90%;
+    margin: auto;
+}
+
+input {
+    border-radius: 7px;
+    border: 2px solid green;
+    padding: 10px;
+    width: calc(100% - 22px); /* Account for padding and border */
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+input:focus {
+    border-color: #ff6f61;
+    box-shadow: 0 0 5px rgba(255, 111, 97, 0.5);
+}
+
+button {
+    border: none;
+    border-radius: 13px;
+    background: linear-gradient(135deg, rgb(193, 2, 138), rgb(255, 100, 200));
+    color: white;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+button:hover {
+    transform: scale(1.2);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+#cboPep {
+    border-radius: 13px;
+    border: none;
+    padding: 10px;
+    background-color: #f4f4f4;
+    font-size: 1rem;
+    color: #555;
+    outline: none;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#cboPep:hover, #cboPep:focus {
+    background-color: #ffefef;
+    box-shadow: 0 0 5px rgba(255, 111, 97, 0.5);
+}
