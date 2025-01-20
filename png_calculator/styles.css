@@ -1,7 +1,7 @@
 /* General Styling */
 body {
     font-family: Arial, sans-serif;
-    background-color: #e3f2fd; /* Light blue background */
+    background-color: #e0f7fa; /* Light blue background */
     margin: 0;
     padding: 0;
     display: flex;
@@ -11,63 +11,67 @@ body {
     box-sizing: border-box;
 }
 
-h1 {
-    color: #1e3a8a; /* Dark blue */
+.container {
+    width: 90%;
+    max-width: 600px;
     text-align: center;
+}
+
+/* Form Styling */
+form {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(1, 87, 155, 0.2);
     margin-bottom: 20px;
 }
 
-/* Form Container */
-form {
-    background: #ffffff; /* White form background */
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(25, 118, 210, 0.2); /* Blue shadow */
-    width: 90%; /* Takes up 90% of the screen width */
-    max-width: 400px; /* Maximum width */
-    box-sizing: border-box;
-}
-
-/* Form Labels */
-form label {
-    display: block;
+/* Labels */
+label {
     font-weight: bold;
     margin-bottom: 8px;
-    color: #1976d2; /* Medium blue */
+    color: #0277bd;
 }
 
-/* Input Fields */
-form input {
+select {
     width: 100%;
     padding: 10px;
     margin-bottom: 15px;
-    border: 1px solid #81d4fa; /* Light blue border */
     border-radius: 4px;
-    box-sizing: border-box;
+    border: 1px solid #81d4fa;
 }
 
-/* Submit Button */
-form button {
-    background-color: #0288d1; /* Dark blue */
+input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #81d4fa;
+    border-radius: 4px;
+}
+
+button {
+    background-color: #0288d1;
     color: white;
     padding: 12px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    width: 100%;
     font-size: 16px;
-    font-weight: bold;
     transition: background-color 0.3s ease;
 }
 
-form button:hover {
-    background-color: #0277bd; /* Slightly darker on hover */
+button:hover {
+    background-color: #0277bd;
 }
 
-/* PNG Result */
-h2 {
-    color: #0288d1; /* Blue text */
-    text-align: center;
+/* Result Styling */
+#result {
+    margin-top: 20px;
+    color: #0288d1;
+    display: none;
+}
+
+#history {
     margin-top: 20px;
 }
 
@@ -76,10 +80,9 @@ h2 {
     form {
         padding: 15px;
         border-radius: 6px;
-        box-shadow: 0 3px 8px rgba(25, 118, 210, 0.15);
     }
 
-    form button {
+    button {
         padding: 10px;
         font-size: 14px;
     }
@@ -90,16 +93,7 @@ h2 {
         padding: 10px;
     }
 
-    form label {
-        font-size: 14px;
-    }
-
-    form input {
-        padding: 8px;
-        font-size: 14px;
-    }
-
-    form button {
+    button {
         padding: 8px;
         font-size: 14px;
     }
