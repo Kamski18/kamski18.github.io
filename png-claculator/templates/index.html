@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PNG Calculator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Calculate Your PNG</h1>
+    <form method="POST">
+        {% for subject in subjects %}
+            <label for="{{ subject }}">{{ subject }} Grade:</label>
+            <input type="text" name="{{ subject }}" id="{{ subject }}" required>
+        {% endfor %}
+        <button type="submit">Calculate</button>
+    </form>
+    {% if result is not none %}
+        <h2>
+            {% if result == "Invalid grade input!" %}
+                {{ result }}
+            {% else %}
+                Your PNG is: {{ result }}
+            {% endif %}
+        </h2>
+    {% endif %}
+</body>
+</html>
