@@ -1,4 +1,3 @@
-// Credit hours for subjects
 const CREDIT_HOUR = {
     "BM": 6,
     "BI": 6,
@@ -14,7 +13,6 @@ const CREDIT_HOUR = {
     "SK": 2,
 };
 
-// Grade weightages
 const GRADE_WEIGHTAGES = {
     "L": 3.820925926,
     "A+": 4.0,
@@ -33,52 +31,87 @@ const GRADE_WEIGHTAGES = {
     "F": 0.0,
 };
 
-// Initialize the form with subjects
-window.onload = function () {
-    const subjectsContainer = document.getElementById("subjectInputs");
-    Object.keys(CREDIT_HOUR).forEach(subject => {
-        const label = document.createElement("label");
-        label.textContent = `${subject} Grade:`;
+document.getElementById("subjects").addEventListener("change", updateSubjectInputs);
 
-        const input = document.createElement("input");
-        input.type = "text";
-        input.name = subject;
-        input.id = subject;
-        input.required = true;
+function updateSubjectInputs() {
+    const selectedSubjects = Array.from(document.getElementById("subjects").selectedOptions).map(option => option.value);
+    const subjectInputsContainer = document.getElementById("subjectInputs");
+    subjectInputsContainer.innerHTML = '';
 
-        subjectsContainer.appendChild(label);
-        subjectsContainer.appendChild(input);
+    selectedSubjects.forEach(subject => {
+        const inputField = document.createElement("div");
+        inputField.innerHTML = `
+            <label for="${subject}">${subject} Grade:</label>
+            <input type="text" id="${subject}" name="${subject}" list="grades" required>
+        `;
+        subjectInputsContainer.appendChild(inputField);
     });
-};
+}
 
-// Handle form submission
-document.getElementById("pngForm").addEventListener("submit", function (event) {
+document.getElementById("pngForm").addEventListener("submit", function(event) {
     event.preventDefault();
 
-    const grades = new FormData(event.target);
+    const grades = {};
+    const inputs = document.querySelectorAll('input[type="text"]');
+
+    inputs.forEach(input => {
+        grades[input.name] = input.value.toUpperCase().trim();
+    });
+
     const weightages = {};
-    let result = null;
 
-    // Calculate weightages
-    for (const [subject, grade] of grades.entries()) {
-        const upperGrade = grade.toUpperCase().trim();
-        if (!(upperGrade in GRADE_WEIGHTAGES)) {
-            result = "Invalid grade input!";
-            break;
+    for (const [subject, grade] of Object.entries(grades)) {
+        if (GRADE_WEIGHTAGES[grade]) {
+            weightages[subject] = GRADE_WEIGHTAGES[grade];
+        } else {
+            showError("Invalid grade input!");
+            return;
         }
-        weightages[subject] = GRADE_WEIGHTAGES[upperGrade];
     }
 
-    // If no error, calculate the PNG
-    if (result === null) {
-        const totalCreditHours = Object.values(CREDIT_HOUR).reduce((acc, hours) => acc + hours, 0);
-        const productOfCredHourWeightages = Object.keys(weightages).reduce((acc, subject) => {
-            return acc + CREDIT_HOUR[subject] * weightages[subject];
-        }, 0);
+    const totalCreditHours = Object.values(CREDIT_HOUR).reduce((acc, hours) => acc + hours, 0);
+    let productOfCredhourWeightages = 0;
 
-        result = (productOfCredHourWeightages / totalCreditHours).toFixed(3);
+    for (const subject in weightages) {
+        productOfCredhourWeightages += CREDIT_HOUR[subject] * weightages[subject];
     }
 
-    // Display the result
-    document.getElementById("result").textContent = result;
+    const result = (productOfCredhourWeightages / totalCreditHours).toFixed(3);
+
+    // Save result to localStorage
+    const history = JSON.parse(localStorage.getItem('history')) || [];
+    history.push({ result, date: new Date().toLocaleString() });
+    localStorage.setItem('history', JSON.stringify(history));
+
+    // Display result and history
+    displayResult(result);
+    displayHistory();
 });
+
+function displayResult(result) {
+    const resultDiv = document.getElementById("result");
+    resultDiv.innerHTML = `<h3>Your PNG is: ${result}</h3>`;
+    resultDiv.style.display = "block";
+}
+
+function displayHistory() {
+    const historyContainer = document.getElementById("history");
+    const history = JSON.parse(localStorage.getItem('history')) || [];
+
+    historyContainer.innerHTML = "<h3>Previous Results:</h3>";
+
+    history.forEach(item => {
+        const entry = document.createElement("p");
+        entry.textContent = `${item.date}: PNG = ${item.result}`;
+        historyContainer.appendChild(entry);
+    });
+}
+
+function showError(message) {
+    const resultDiv = document.getElementById("result");
+    resultDiv.innerHTML = `<h3 style="color: red;">${message}</h3>`;
+    resultDiv.style.display = "block";
+}
+
+// Display history when the page loads
+window.onload = displayHistory;
