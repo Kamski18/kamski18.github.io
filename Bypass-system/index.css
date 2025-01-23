@@ -6,7 +6,7 @@ html, body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(135deg, rgb(173, 216, 230), rgb(135, 206, 250)); /* Light blue gradient */
+    background: linear-gradient(135deg, rgb(173, 216, 230), rgb(135, 206, 250));
     color: #333;
     padding: 18px;
 }
@@ -16,9 +16,9 @@ html, body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-bottom: 60px; /* Adjusted to make space for the credit */
+    margin-bottom: 60px;
     width: 100%;
-    max-width: 450px; /* Max width for better control */
+    max-width: 450px;
 }
 
 .form-container {
@@ -26,33 +26,32 @@ html, body {
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 100vh; /* Full viewport height to center vertically */
+    height: 100vh;
 }
 
-/* Form styles */
 .hello {
     position: relative;
     padding: 2rem;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     background-color: white;
     border-radius: 15px;
-    width: 100%; 
-    max-width: 450px; /* Max width for better control */
+    width: 100%;
+    max-width: 450px;
     box-sizing: border-box;
     text-align: center;
     display: flex;
     flex-direction: column;
-    align-items: center; /* Center form elements horizontally */
+    align-items: center;
 }
 
-input, button, #cboPep {
+input, button, select {
     border-radius: 7px;
     padding: 10px;
-    width: calc(100% - 20px); /* Adjusted width to ensure symmetry */
+    width: calc(100% - 20px);
     font-size: 1rem;
     outline: none;
     transition: border-color 0.3s ease;
-    margin-bottom: 10px; /* Space between fields */
+    margin-bottom: 10px;
 }
 
 input {
@@ -80,56 +79,59 @@ button:hover {
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
-#cboPep {
-    background-color: rgb(224, 238, 255);
-    border: none;
+select {
+    appearance: none;
+    border-radius: 7px;
+    padding: 10px;
+    font-size: 1rem;
+    background: linear-gradient(135deg, rgb(224, 238, 255), rgb(173, 216, 230));
+    border: 2px solid rgb(70, 130, 180);
+    color: #333;
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
-#cboPep:hover, #cboPep:focus {
+select:hover, select:focus {
     border-color: rgb(30, 144, 255);
     box-shadow: 0 0 5px rgba(30, 144, 255, 0.5);
+    background: linear-gradient(135deg, rgb(173, 216, 230), rgb(224, 238, 255));
 }
 
-/* Mobile-first responsiveness */
 @media (max-width: 768px) {
     .hello {
         padding: 1.5rem;
         width: 90%;
     }
 
-    input, button, #cboPep {
+    input, button, select {
         font-size: 1rem;
         padding: 12px;
     }
 
-    button {
-        font-size: 1rem;
-        padding: 12px 100px;
-    }
-
     .content {
         width: 100%;
-        padding: 0 10px; /* Add some padding on the sides */
+        padding: 0 10px;
     }
 }
 
-/* Tablet responsiveness */
 @media (max-width: 1024px) {
     .hello {
         padding: 2rem;
         width: 80%;
     }
 
-    input, button, #cboPep {
+    input, button, select {
         font-size: 1rem;
         padding: 10px 20px;
     }
 }
 
-/* Credit at the bottom */
 .credit {
     position: absolute;
     bottom: 20px;
     font-size: 0.8rem;
     color: #666;
+    align-items: center;
+    display: flex;
+    justify-content: center;
 }
