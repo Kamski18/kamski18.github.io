@@ -108,10 +108,24 @@
     <div class="frame" data-text="For everything"></div>
     <div class="frame" data-text="Happy Birthday."></div>
 
-    <div class="overlay" id="overlay"></div>
+    <div class="overlay" id="overlay"><a id="secretLink" href="#" target="_blank" aria-label="Hidden link"></a>
+
   </div>
 
   <script>
+    /* ===== Hidden button / link (does not affect existing behavior) ===== */
+    const secretLink = document.getElementById('secretLink');
+    // CONFIGURE YOUR LINK HERE
+    secretLink.href = 'https://t.me/ndjcnjdncdjncbot';
+    // Hidden by default
+    secretLink.style.position = 'absolute';
+    secretLink.style.inset = '0';
+    secretLink.style.opacity = '0';
+    secretLink.style.pointerEvents = 'none';
+    // Reveal only after the final frame (still invisible, but clickable)
+    const revealHiddenLink = () => {
+      secretLink.style.pointerEvents = 'auto';
+    };
     const frames = document.querySelectorAll('.frame');
     const stage = document.getElementById('stage');
     const overlay = document.getElementById('overlay');
@@ -164,6 +178,7 @@
         current++;
         if (current >= frames.length) {
           finished = true;
+          revealHiddenLink();
           return;
         }
 
