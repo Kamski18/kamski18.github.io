@@ -124,4 +124,12 @@ window.resetDay = () => {
     }
 }
 
+
+window.addEventListener("load", () => {
+    setTimeout(() => {
+        const intro = document.getElementById("intro-screen");
+        if (intro) intro.remove();
+    }, 1700); // matches CSS animation timing
+});
+
 init();
