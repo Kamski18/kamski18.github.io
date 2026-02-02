@@ -63,5 +63,15 @@
         "id": 13,
         "name": "Masak lemak cili padi ayam",
         "calories": 40.0
+    },
+    {
+        "id": 14,
+        "name": "ayam goreng drummet",
+        "calories": 100.0
+    },
+    {
+        "id": 15,
+        "name": "Ayam goreng biasa",
+        "calories": 260.0
     }
 ]
