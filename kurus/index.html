@@ -3,83 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FitTrack</title>
+    <title>FitTrack Dark</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
     <div id="intro-screen">
         <div class="logo-animation">
-            <span class="material-icons logo-icon">fitness_center</span>
+            <span class="material-icons logo-icon">auto_awesome</span>
             <h1>FitTrack</h1>
         </div>
     </div>
 
     <div class="app-container">
         <header>
-            <div class="header-content">
-                <h2>Daily Tracker</h2>
-                <div class="date-badge" id="current-date">Today</div>
+            <div class="header-top">
+                <h2>Today</h2>
+                <button class="circle-btn settings-trigger" onclick="toggleSettings(true)">
+                    <span class="material-icons">settings</span>
+                </button>
             </div>
-            
-            <div class="calorie-card">
-                <span class="label">Total Calories</span>
-                <h1 id="total-calories">0</h1>
-                <span class="unit">kcal</span>
+            <div class="calorie-card" id="cal-card">
+                <span class="label">Baki Kalori</span>
+                <h1 id="baki-display">2000</h1>
+                <span class="unit">kcal remaining</span>
             </div>
         </header>
 
         <main>
-            <div class="card">
+            <div class="card" id="rice-card">
                 <div class="card-header">
-                    <span class="material-icons icon-rice">rice_bowl</span>
-                    <h3>Rice (Plates)</h3>
+                    <span class="material-icons">rice_bowl</span>
+                    <h3>Pinggan Nasi (Mandatory)</h3>
                 </div>
                 <div class="counter-control">
-                    <button onclick="updateRice(-1)">-</button>
+                    <button class="circle-btn" onclick="updateRice(-1)"><span class="material-icons">remove</span></button>
                     <span id="rice-count">0</span>
-                    <button onclick="updateRice(1)">+</button>
+                    <button class="circle-btn" onclick="updateRice(1)"><span class="material-icons">add</span></button>
                 </div>
-                <p class="subtext">200 kcal per plate</p>
             </div>
 
             <div class="card">
-                <div class="card-header">
-                    <span class="material-icons icon-food">restaurant</span>
-                    <h3>Side Dishes</h3>
-                </div>
-
+                <div class="card-header"><span class="material-icons">restaurant</span><h3>Side Dishes</h3></div>
                 <div class="search-box">
                     <span class="material-icons">search</span>
-                    <input type="text" id="search-input" placeholder="Search food..." onkeyup="filterMeals()">
+                    <input type="text" id="search-bar" placeholder="Cari lauk..." onkeyup="filterMeals()">
                 </div>
-                
                 <div class="info-banner">
                     <span class="material-icons">info</span>
                     <p>Note: Satu sudu kuah = 3 tablespoon</p>
                 </div>
-                <div class="list-header">
-                    <span>Menu</span>
-                    <span>Qty (tbsp)</span>
-                </div>
-
-                <div class="checklist" id="meal-list">
-                    </div>
-            </div>
-
-            <div class="card">
-                <div class="card-header">
-                    <span class="material-icons icon-water">local_drink</span>
-                    <h3>Water</h3>
-                </div>
-                <div class="water-grid" id="water-grid"></div>
-                <p class="subtext" id="water-text">0 / 8 Glasses</p>
+                <div class="list-header"><span>Menu Lauk</span><span>Sudu (tbsp)</span></div>
+                <div id="meal-list"></div>
+                <button class="confirm-btn" onclick="confirmEntry()">Confirm Meal</button>
             </div>
         </main>
+        <a href="#" class="reset-link" onclick="resetDay()">Reset Day</a>
     </div>
 
+    <div id="settings-modal" class="modal">
+        <div class="modal-content">
+            <h3>Daily Goal</h3>
+            <input type="number" id="goal-input" class="qty-input" style="width: 80%; margin: 20px 0;">
+            <button class="confirm-btn" onclick="saveGoal()">Save</button>
+        </div>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
