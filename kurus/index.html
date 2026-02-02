@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitTrack</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="intro-screen">
+        <div class="logo-animation">
+            <span class="material-icons logo-icon">fitness_center</span>
+            <h1>FitTrack</h1>
+        </div>
+    </div>
+
+    <div class="app-container">
+        <header>
+            <div class="header-content">
+                <h2>Daily Tracker</h2>
+                <div class="date-badge" id="current-date">Today</div>
+            </div>
+            
+            <div class="calorie-card">
+                <span class="label">Total Calories</span>
+                <h1 id="total-calories">0</h1>
+                <span class="unit">kcal</span>
+            </div>
+        </header>
+
+        <main>
+            <div class="card">
+                <div class="card-header">
+                    <span class="material-icons icon-rice">rice_bowl</span>
+                    <h3>Rice (Plates)</h3>
+                </div>
+                <div class="counter-control">
+                    <button onclick="updateRice(-1)">-</button>
+                    <span id="rice-count">0</span>
+                    <button onclick="updateRice(1)">+</button>
+                </div>
+                <p class="subtext">200 kcal per plate</p>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <span class="material-icons icon-food">restaurant</span>
+                    <h3>Side Dishes</h3>
+                </div>
+
+                <div class="search-box">
+                    <span class="material-icons">search</span>
+                    <input type="text" id="search-input" placeholder="Search food..." onkeyup="filterMeals()">
+                </div>
+
+                <div class="list-header">
+                    <span>Menu</span>
+                    <span>Qty (tbsp)</span>
+                </div>
+
+                <div class="checklist" id="meal-list">
+                    </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <span class="material-icons icon-water">local_drink</span>
+                    <h3>Water</h3>
+                </div>
+                <div class="water-grid" id="water-grid"></div>
+                <p class="subtext" id="water-text">0 / 8 Glasses</p>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

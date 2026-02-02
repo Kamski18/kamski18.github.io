@@ -1,0 +1,67 @@
+[
+    {
+        "id": 1,
+        "name": "Asam pedas ikan",
+        "calories": 45.0
+    },
+    {
+        "id": 2,
+        "name": "Asam pedas ayam",
+        "calories": 50.0
+    },
+    {
+        "id": 3,
+        "name": "Buttermilk ayam",
+        "calories": 60.0
+    },
+    {
+        "id": 4,
+        "name": "Sambal goreng ikan bilis",
+        "calories": 50.0
+    },
+    {
+        "id": 5,
+        "name": "Sambal telur (sebiji telur)",
+        "calories": 130.0
+    },
+    {
+        "id": 6,
+        "name": "Sambal telur (sambal sahaja)",
+        "calories": 30.0
+    },
+    {
+        "id": 7,
+        "name": "Sambal ikan (kembung)",
+        "calories": 50.0
+    },
+    {
+        "id": 8,
+        "name": "Kari ikan",
+        "calories": 60.0
+    },
+    {
+        "id": 9,
+        "name": "Kari ayam (seketul ayam)",
+        "calories": 110.0
+    },
+    {
+        "id": 10,
+        "name": "Kari ayam (kuah sahaja)",
+        "calories": 30.0
+    },
+    {
+        "id": 11,
+        "name": "Kari daging",
+        "calories": 50.0
+    },
+    {
+        "id": 12,
+        "name": "Masak lemak cili padi ikan",
+        "calories": 30.0
+    },
+    {
+        "id": 13,
+        "name": "Masak lemak cili padi ayam",
+        "calories": 40.0
+    }
+]

@@ -1,0 +1,95 @@
+/* ... (Keep existing :root, body, intro animation, and header styles from previous response) ... */
+
+:root {
+    --bg-color: #121212;
+    --surface-color: #1E1E1E;
+    --primary-color: #8AB4F8;
+    --accent-color: #81C995;
+    --text-high: rgba(255, 255, 255, 0.87);
+    --text-medium: rgba(255, 255, 255, 0.60);
+    --radius: 16px;
+    --input-bg: #2C2C2C;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-high);
+    font-family: 'Roboto', sans-serif;
+    margin: 0; padding: 0;
+}
+
+/* Include Intro Animation CSS here (same as previous) */
+#intro-screen {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background-color: var(--bg-color);
+    display: flex; justify-content: center; align-items: center; z-index: 999;
+    animation: slideUp 0.8s ease-in-out 2s forwards;
+}
+.logo-animation { text-align: center; animation: fadeIn 1s ease-out; }
+.logo-icon { font-size: 4rem; color: var(--primary-color); }
+@keyframes slideUp { to { transform: translateY(-100%); opacity: 0; pointer-events: none; } }
+@keyframes fadeIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+.app-container { max-width: 480px; margin: 0 auto; padding: 20px; opacity: 0; animation: contentFadeIn 1s ease-out 2.2s forwards; }
+@keyframes contentFadeIn { to { opacity: 1; } }
+
+/* Header & Cards */
+.calorie-card {
+    background: linear-gradient(135deg, var(--primary-color), #5e8bd6);
+    color: #000; padding: 24px; border-radius: var(--radius);
+    text-align: center; margin-top: 16px; margin-bottom: 24px;
+}
+.calorie-card h1 { margin: 0; font-size: 3.5rem; font-weight: 300; }
+.card {
+    background-color: var(--surface-color); padding: 20px;
+    border-radius: var(--radius); margin-bottom: 16px;
+}
+.card-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+.material-icons { color: var(--accent-color); }
+
+/* --- Search Bar --- */
+.search-box {
+    background: var(--input-bg);
+    border-radius: 8px;
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+.search-box input {
+    background: transparent; border: none; color: white;
+    margin-left: 10px; width: 100%; outline: none; font-size: 1rem;
+}
+.search-box .material-icons { color: var(--text-medium); }
+
+/* --- Meal List & Inputs --- */
+.list-header {
+    display: flex; justify-content: space-between;
+    font-size: 0.75rem; color: var(--text-medium);
+    text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;
+}
+
+.meal-item {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.meal-info { display: flex; flex-direction: column; }
+.meal-cal { color: var(--text-medium); font-size: 0.8rem; }
+
+/* The input for tablespoons */
+.qty-input {
+    background: var(--input-bg);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: var(--primary-color);
+    width: 50px; padding: 8px;
+    border-radius: 8px; text-align: center; font-size: 1rem;
+}
+.qty-input:focus { border-color: var(--primary-color); outline: none; }
+
+/* Rice & Water Controls (Same as before) */
+.counter-control { display: flex; justify-content: space-between; align-items: center; font-size: 1.5rem; margin-bottom: 5px; }
+button { background: rgba(255,255,255,0.05); border: none; color: white; width: 40px; height: 40px; border-radius: 50%; font-size: 1.2rem; cursor: pointer; }
+.water-grid { display: flex; gap: 8px; margin-bottom: 10px; }
+.glass { flex: 1; height: 40px; background: rgba(138, 180, 248, 0.2); border-radius: 4px; cursor: pointer; transition: 0.3s; }
+.glass.active { background: #4FC3F7; box-shadow: 0 0 8px #4FC3F7; }
+.subtext { text-align: center; color: var(--text-medium); font-size: 0.8rem; }
