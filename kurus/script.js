@@ -47,18 +47,43 @@ window.updateQty = (id, val) => {
 }
 
 window.confirmEntry = () => {
+    // 1. Mandatory Rice Validation
     if (state.rice < 1) {
         document.getElementById('rice-card').classList.add('shake');
         setTimeout(() => document.getElementById('rice-card').classList.remove('shake'), 400);
-        return alert("Minimum 1 pinggan nasi!");
+        alert("Nasi wajib ada! Minimum 1 pinggan.");
+        return;
     }
-    let total = state.rice * 200;
+
+    // 2. Start calculation with Rice
+    let totalEat = state.rice * 200;
+
+    // 3. Calculate Side Dishes
     for (let id in state.selections) {
-        total += (state.allMeals.find(m => m.id == id).cal * state.selections[id]);
+        // Ensure the ID exists in our loaded meal list
+        const meal = state.allMeals.find(m => m.id == id);
+        
+        if (meal) {
+            const qty = parseInt(state.selections[id]);
+            // Only add if qty is a valid number
+            if (!isNaN(qty)) {
+                totalEat += (meal.cal * qty);
+            }
+        }
     }
-    state.baki -= total;
+
+    // 4. Safety Check: If totalEat somehow became NaN, stop here
+    if (isNaN(totalEat)) {
+        console.error("Calculation Error: Result was NaN");
+        alert("Ralat pengiraan. Sila semak input anda.");
+        return;
+    }
+
+    // 5. Update Baki
+    state.baki -= totalEat;
+    
     saveAndReset();
-}
+};
 
 function saveAndReset() {
     localStorage.setItem('ft_goal', state.goal);
