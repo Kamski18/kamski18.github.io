@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
     <div id="intro-screen">
         <div class="logo-animation">
             <span class="material-icons logo-icon">auto_awesome</span>
@@ -45,20 +46,32 @@
             </div>
 
             <div class="card">
-                <div class="card-header"><span class="material-icons">restaurant</span><h3>Side Dishes</h3></div>
+                <div class="card-header">
+                    <span class="material-icons">restaurant</span>
+                    <h3>Side Dishes</h3>
+                </div>
+
                 <div class="search-box">
                     <span class="material-icons">search</span>
                     <input type="text" id="search-bar" placeholder="Cari lauk..." onkeyup="filterMeals()">
                 </div>
+
                 <div class="info-banner">
                     <span class="material-icons">info</span>
                     <p>Note: Satu sudu kuah = 3 tablespoon</p>
                 </div>
-                <div class="list-header"><span>Menu Lauk</span><span>Sudu (tbsp)</span></div>
+
+                <div class="list-header">
+                    <span>Menu Lauk</span>
+                    <span>Sudu (tbsp)</span>
+                </div>
+
                 <div id="meal-list"></div>
+
                 <button class="confirm-btn" onclick="confirmEntry()">Confirm Meal</button>
             </div>
         </main>
+
         <a href="#" class="reset-link" onclick="resetDay()">Reset Day</a>
     </div>
 
@@ -69,6 +82,7 @@
             <button class="confirm-btn" onclick="saveGoal()">Save</button>
         </div>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>

@@ -1,10 +1,13 @@
 let state = {
-    goal: parseInt(localStorage.getItem('ft_goal')) || 2000,
-    baki: parseInt(localStorage.getItem('ft_baki')) || 2000,
+    goal: Number(localStorage.getItem('ft_goal')) || 2000,
+    baki: Number(localStorage.getItem('ft_baki')) || 2000,
     rice: 0,
     selections: {},
     allMeals: []
 };
+
+if (!Number.isFinite(state.goal)) state.goal = 2000;
+if (!Number.isFinite(state.baki)) state.baki = state.goal;
 
 async function init() {
     try {
@@ -13,7 +16,7 @@ async function init() {
         renderMeals(state.allMeals);
         updateUI();
     } catch (e) {
-        console.error("Please run this using a local server (Live Server) to load JSON.");
+        console.error("Run using Live Server to load JSON.");
     }
 }
 
@@ -24,7 +27,7 @@ function renderMeals(list) {
         const div = document.createElement('div');
         div.className = 'meal-item';
         div.innerHTML = `
-            <div>${meal.name}<br><small style="color:gray">${meal.cal} kcal/tbsp</small></div>
+            <div>${meal.name}<br><small style="color:gray">${meal.calories} kcal/tbsp</small></div>
             <input type="number" class="qty-input" placeholder="0" oninput="updateQty(${meal.id}, this.value)">
         `;
         container.appendChild(div);
@@ -43,11 +46,11 @@ window.updateRice = (val) => {
 
 window.updateQty = (id, val) => {
     const n = parseInt(val);
-    if (n > 0) state.selections[id] = n; else delete state.selections[id];
+    if (n > 0) state.selections[id] = n;
+    else delete state.selections[id];
 }
 
 window.confirmEntry = () => {
-    // 1. Mandatory Rice Validation
     if (state.rice < 1) {
         document.getElementById('rice-card').classList.add('shake');
         setTimeout(() => document.getElementById('rice-card').classList.remove('shake'), 400);
@@ -55,40 +58,32 @@ window.confirmEntry = () => {
         return;
     }
 
-    // 2. Start calculation with Rice
     let totalEat = state.rice * 200;
 
-    // 3. Calculate Side Dishes
     for (let id in state.selections) {
-        // Ensure the ID exists in our loaded meal list
         const meal = state.allMeals.find(m => m.id == id);
-        
-        if (meal) {
-            const qty = parseInt(state.selections[id]);
-            // Only add if qty is a valid number
-            if (!isNaN(qty)) {
-                totalEat += (meal.cal * qty);
-            }
+        const qty = Number(state.selections[id]);
+
+        if (meal && Number.isFinite(qty)) {
+            totalEat += meal.calories * qty;
         }
     }
 
-    // 4. Safety Check: If totalEat somehow became NaN, stop here
-    if (isNaN(totalEat)) {
-        console.error("Calculation Error: Result was NaN");
-        alert("Ralat pengiraan. Sila semak input anda.");
+    if (!Number.isFinite(totalEat)) {
+        alert("Calculation error.");
         return;
     }
 
-    // 5. Update Baki
     state.baki -= totalEat;
-    
     saveAndReset();
 };
 
 function saveAndReset() {
     localStorage.setItem('ft_goal', state.goal);
     localStorage.setItem('ft_baki', state.baki);
-    state.rice = 0; state.selections = {};
+
+    state.rice = 0;
+    state.selections = {};
     document.getElementById('rice-count').innerText = "0";
     document.getElementById('search-bar').value = "";
     renderMeals(state.allMeals);
@@ -96,22 +91,37 @@ function saveAndReset() {
 }
 
 function updateUI() {
-    document.getElementById('baki-display').innerText = state.baki;
+    document.getElementById('baki-display').innerText = Math.round(state.baki);
     document.getElementById('cal-card').classList.toggle('low-calories', state.baki < 0);
 }
 
-window.toggleSettings = (show) => document.getElementById('settings-modal').style.display = show ? 'flex' : 'none';
-
-window.saveGoal = () => {
-    const g = parseInt(document.getElementById('goal-input').value);
-    if (g > 0) {
-        state.baki += (g - state.goal);
-        state.goal = g;
-        saveAndReset();
-        toggleSettings(false);
-    }
+window.toggleSettings = (show) => {
+    document.getElementById('settings-modal').style.display = show ? 'flex' : 'none';
+    if (show) document.getElementById('goal-input').value = state.goal;
 }
 
-window.resetDay = () => { if(confirm("Reset?")) { state.baki = state.goal; saveAndReset(); } }
+window.saveGoal = () => {
+    const g = Number(document.getElementById('goal-input').value);
+    if (!Number.isFinite(g) || g <= 0) {
+        alert("Enter a valid calorie goal.");
+        return;
+    }
+
+    state.baki += (g - state.goal);
+    state.goal = g;
+
+    localStorage.setItem('ft_goal', state.goal);
+    localStorage.setItem('ft_baki', state.baki);
+
+    updateUI();
+    toggleSettings(false);
+}
+
+window.resetDay = () => {
+    if (confirm("Reset today’s calories?")) {
+        state.baki = state.goal;
+        saveAndReset();
+    }
+}
 
 init();
