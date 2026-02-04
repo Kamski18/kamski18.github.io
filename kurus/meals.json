@@ -73,5 +73,25 @@
         "id": 15,
         "name": "Ayam goreng biasa",
         "calories": 260.0
+    },
+    {
+        "id": 16,
+        "name": "Nasi lemak (per meals)",
+        "calories": 500.0
+    },
+    {
+        "id": 17,
+        "name": "Sambal belacan",
+        "calories": 30.0
+    },
+    {
+        "id": 18,
+        "name": "Roti canai (per pieces)",
+        "calories": 350.0
+    },
+    {
+        "id": 19,
+        "name": "Roti telur (per pieces)",
+        "calories": 370.0
     }
 ]
