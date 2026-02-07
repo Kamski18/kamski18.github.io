@@ -50,13 +50,7 @@ window.updateQty = (id, val) => {
     else delete state.selections[id];
 }
 
-window.confirmEntry = () => {
-    if (state.rice < 1) {
-        document.getElementById('rice-card').classList.add('shake');
-        setTimeout(() => document.getElementById('rice-card').classList.remove('shake'), 400);
-        alert("Nasi wajib ada! Minimum 1 pinggan.");
-        return;
-    }
+
 
     let totalEat = state.rice * 200;
 
