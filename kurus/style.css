@@ -9,7 +9,6 @@
     --input-bg: #2C2C2C;
     --radius: 16px;
 }
-
 body {
     background: var(--bg-color);
     color: var(--text-high);
@@ -17,7 +16,6 @@ body {
     margin: 0;
     -webkit-tap-highlight-color: transparent;
 }
-
 /* Intro Screen */
 #intro-screen {
     position: fixed;
@@ -31,11 +29,9 @@ body {
     animation: slideUp 0.8s ease-in-out 1.5s forwards;
     pointer-events: none;
 }
-
 @keyframes slideUp {
     to { transform: translateY(-100%); opacity: 0; }
 }
-
 /* App Container */
 .app-container {
     max-width: 480px;
@@ -44,9 +40,7 @@ body {
     opacity: 0;
     animation: fadeIn 1s 1.7s forwards;
 }
-
 @keyframes fadeIn { to { opacity: 1; } }
-
 /* HEADER LAYER FIX */
 .header-top {
     display: flex;
@@ -55,12 +49,10 @@ body {
     position: relative;
     z-index: 5;
 }
-
 .settings-trigger {
     position: relative;
     z-index: 6;
 }
-
 /* Cards */
 .calorie-card {
     background: linear-gradient(135deg, var(--primary-color), #5e8bd6);
@@ -71,16 +63,16 @@ body {
     position: relative;
     z-index: 1;
 }
-
-.calorie-card.low-calories { background: var(--danger); }
-
+.calorie-card.low-calories { 
+    background: var(--danger); 
+    color: #121212; 
+}
 .card {
     background: var(--surface-color);
     padding: 20px;
     border-radius: var(--radius);
     margin-bottom: 20px;
 }
-
 .card-header {
     display: flex;
     align-items: center;
@@ -88,7 +80,6 @@ body {
     margin-bottom: 16px;
     color: var(--accent-color);
 }
-
 /* Search */
 .search-box {
     background: var(--input-bg);
@@ -98,7 +89,6 @@ body {
     align-items: center;
     margin-bottom: 15px;
 }
-
 .search-box input {
     background: transparent;
     border: none;
@@ -107,7 +97,6 @@ body {
     width: 100%;
     outline: none;
 }
-
 /* Info Banner */
 .info-banner {
     background: rgba(138, 180, 248, 0.1);
@@ -120,7 +109,16 @@ body {
     font-size: 0.8rem;
     margin-bottom: 15px;
 }
-
+/* List Header */
+.list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    font-weight: 500;
+    color: var(--text-medium);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
 /* Meal List */
 .meal-item {
     display: flex;
@@ -128,7 +126,6 @@ body {
     padding: 12px 0;
     border-bottom: 1px solid rgba(255,255,255,0.05);
 }
-
 .qty-input {
     background: var(--input-bg);
     border: 1px solid rgba(255,255,255,0.1);
@@ -138,7 +135,6 @@ body {
     border-radius: 8px;
     text-align: center;
 }
-
 /* Buttons */
 .confirm-btn {
     width: 100%;
@@ -150,7 +146,6 @@ body {
     cursor: pointer;
     margin-top: 10px;
 }
-
 .circle-btn {
     background: rgba(255,255,255,0.05);
     border: none;
@@ -160,7 +155,6 @@ body {
     border-radius: 50%;
     cursor: pointer;
 }
-
 /* Rice Counter */
 .counter-control {
     display: flex;
@@ -168,7 +162,18 @@ body {
     align-items: center;
     font-size: 1.5rem;
 }
-
+/* Total Preview */
+.total-preview {
+    margin: 20px 0 15px;
+    text-align: center;
+    font-size: 1.1rem;
+    color: var(--text-medium);
+}
+.total-preview strong {
+    color: var(--accent-color);
+    font-size: 1.4rem;
+    font-weight: 500;
+}
 /* Modal */
 .modal {
     display: none;
@@ -182,25 +187,21 @@ body {
     justify-content: center;
     z-index: 1000;
 }
-
 .modal-content {
     background: var(--surface-color);
     padding: 30px;
     border-radius: 20px;
     text-align: center;
 }
-
 /* Effects */
 .shake {
     animation: shake 0.4s;
     border: 2px solid var(--danger) !important;
 }
-
 @keyframes shake {
     25% { transform: translateX(-5px); }
     75% { transform: translateX(5px); }
 }
-
 .reset-link {
     display: block;
     text-align: center;

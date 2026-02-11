@@ -16,6 +16,7 @@ async function init() {
         if (!response.ok) throw new Error("Failed to load meals.json");
         state.allMeals = await response.json();
         renderMeals(state.allMeals);
+        updatePreview();
         updateUI();
     } catch (e) {
         console.error("Failed to load meals:", e);
@@ -41,6 +42,7 @@ function renderMeals(list) {
         `;
         container.appendChild(div);
     });
+    updatePreview();
 }
 
 window.filterMeals = () => {
@@ -52,7 +54,7 @@ window.filterMeals = () => {
 window.updateRice = (val) => {
     state.rice = Math.max(0, state.rice + val);
     document.getElementById('rice-count').innerText = state.rice;
-    // Optional: updateUI() here if you want live total preview
+    updatePreview();
 };
 
 window.updateQty = (id, val) => {
@@ -62,12 +64,11 @@ window.updateQty = (id, val) => {
     } else {
         state.selections[id] = n;
     }
-    // Optional: live preview → call calculateTotalEat() and show somewhere
+    updatePreview();
 };
 
 function calculateTotalEat() {
     let total = state.rice * 200;
-
     for (let id in state.selections) {
         const meal = state.allMeals.find(m => m.id == id);
         const qty = Number(state.selections[id]);
@@ -75,17 +76,18 @@ function calculateTotalEat() {
             total += meal.calories * qty;
         }
     }
-
     return total;
 }
 
-window.saveAndEat = () => {     // ← this is the main "Save / Log" action
-    const totalEat = calculateTotalEat();
-
-    if (!Number.isFinite(totalEat)) {
-        alert("Error in calculation. Please check inputs.");
-        return;
+function updatePreview() {
+    const el = document.getElementById('total-preview');
+    if (el) {
+        el.innerText = calculateTotalEat();
     }
+}
+
+window.confirmEntry = () => {
+    const totalEat = calculateTotalEat();
 
     if (totalEat <= 0) {
         alert("Nothing selected to log.");
@@ -94,8 +96,16 @@ window.saveAndEat = () => {     // ← this is the main "Save / Log" action
 
     state.baki -= totalEat;
 
-    // Optional: show feedback
-    // alert(`You have consumed ≈ ${totalEat} kcal\nRemaining: ${state.baki}`);
+    let message = `Successfully logged ${totalEat} kcal.\nRemaining: ${Math.round(state.baki)} kcal`;
+    if (state.baki < 0) {
+        message += "\n\nYou have exceeded your daily goal!";
+        const card = document.getElementById('cal-card');
+        if (card) {
+            card.classList.add('shake');
+            setTimeout(() => card.classList.remove('shake'), 400);
+        }
+    }
+    alert(message);
 
     saveAndReset();
 };
@@ -104,7 +114,6 @@ function saveAndReset() {
     localStorage.setItem('ft_goal', state.goal);
     localStorage.setItem('ft_baki', state.baki);
 
-    // Reset today's inputs
     state.rice = 0;
     state.selections = {};
 
@@ -114,26 +123,19 @@ function saveAndReset() {
     const searchEl = document.getElementById('search-bar');
     if (searchEl) searchEl.value = "";
 
-    // Reset all input fields
-    document.querySelectorAll('.qty-input').forEach(input => {
-        input.value = "";
-    });
+    document.querySelectorAll('.qty-input').forEach(input => input.value = "");
 
     renderMeals(state.allMeals);
+    updatePreview();
     updateUI();
 }
 
 function updateUI() {
     const bakiEl = document.getElementById('baki-display');
-    if (bakiEl) {
-        bakiEl.innerText = Math.round(state.baki);
-    }
+    if (bakiEl) bakiEl.innerText = Math.round(state.baki);
 
     const card = document.getElementById('cal-card');
-    if (card) {
-        card.classList.toggle('low-calories', state.baki < 0);
-        card.classList.toggle('overdrawn', state.baki < 0); // optional extra class
-    }
+    if (card) card.classList.toggle('low-calories', state.baki < 0);
 }
 
 window.toggleSettings = (show) => {
@@ -156,7 +158,6 @@ window.saveGoal = () => {
         return;
     }
 
-    // Adjust remaining balance proportionally
     state.baki += (g - state.goal);
     state.goal = g;
 
@@ -168,14 +169,13 @@ window.saveGoal = () => {
 };
 
 window.resetDay = () => {
-    if (confirm("Reset today’s remaining calories to goal?")) {
+    if (confirm("Are you sure you want to reset remaining calories to your daily goal?")) {
         state.baki = state.goal;
         saveAndReset();
     }
 };
 
 window.addEventListener("load", () => {
-    // Remove intro screen after animation
     setTimeout(() => {
         const intro = document.getElementById("intro-screen");
         if (intro) intro.remove();

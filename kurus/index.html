@@ -9,14 +9,12 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
     <div id="intro-screen">
         <div class="logo-animation">
             <span class="material-icons logo-icon">auto_awesome</span>
             <h1>FitTrack</h1>
         </div>
     </div>
-
     <div class="app-container">
         <header>
             <div class="header-top">
@@ -26,17 +24,16 @@
                 </button>
             </div>
             <div class="calorie-card" id="cal-card">
-                <span class="label">Baki Kalori</span>
+                <span class="label">Calories Remaining</span>
                 <h1 id="baki-display">2000</h1>
-                <span class="unit">kcal remaining</span>
+                <span class="unit">kcal</span>
             </div>
         </header>
-
         <main>
             <div class="card" id="rice-card">
                 <div class="card-header">
                     <span class="material-icons">rice_bowl</span>
-                    <h3>Pinggan Nasi (Mandatory)</h3>
+                    <h3>Rice Plates</h3>
                 </div>
                 <div class="counter-control">
                     <button class="circle-btn" onclick="updateRice(-1)"><span class="material-icons">remove</span></button>
@@ -44,37 +41,36 @@
                     <button class="circle-btn" onclick="updateRice(1)"><span class="material-icons">add</span></button>
                 </div>
             </div>
-
             <div class="card">
                 <div class="card-header">
                     <span class="material-icons">restaurant</span>
                     <h3>Side Dishes</h3>
                 </div>
-
                 <div class="search-box">
                     <span class="material-icons">search</span>
-                    <input type="text" id="search-bar" placeholder="Cari lauk..." onkeyup="filterMeals()">
+                    <input type="text" id="search-bar" placeholder="Search sides..." onkeyup="filterMeals()">
                 </div>
-
                 <div class="info-banner">
                     <span class="material-icons">info</span>
-                    <p>Note: Satu sudu kuah = 3 tablespoon</p>
+                    <p>Note: One ladle of gravy/soup = 3 tablespoons</p>
                 </div>
-
                 <div class="list-header">
-                    <span>Menu Lauk</span>
-                    <span>Sudu (tbsp)</span>
+                    <span>Side Dish</span>
+                    <span>Tbsp</span>
                 </div>
-
                 <div id="meal-list"></div>
-
+                
+                <!-- Live Preview -->
+                <div class="total-preview">
+                    Total Calories: <strong><span id="total-preview">0</span> kcal</strong>
+                </div>
+                
                 <button class="confirm-btn" onclick="confirmEntry()">Confirm Meal</button>
             </div>
         </main>
-
         <a href="#" class="reset-link" onclick="resetDay()">Reset Day</a>
     </div>
-
+    
     <div id="settings-modal" class="modal">
         <div class="modal-content">
             <h3>Daily Goal</h3>
@@ -82,7 +78,7 @@
             <button class="confirm-btn" onclick="saveGoal()">Save</button>
         </div>
     </div>
-
+    
     <script src="script.js"></script>
 </body>
 </html>
