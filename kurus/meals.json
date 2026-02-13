@@ -93,5 +93,30 @@
         "id": 19,
         "name": "Roti telur (per pieces)",
         "calories": 370.0
+    },
+    {
+        "id": 20,
+        "name": "Kuih koci (per pieces)",
+        "calories": 160.0
+    },
+    {
+        "id": 21,
+        "name": "Murtabak daging (per pieces)",
+        "calories": 500.0
+    },
+    {
+        "id": 22,
+        "name": "Nasi ayam gepuk Wak Jo",
+        "calories": 800.0
+    },
+    {
+        "id": 23,
+        "name": "Sambal nyet berapi",
+        "calories": 80.0
+    },
+    {
+        "id": 24,
+        "name": "Rendang Nyet Berapi",
+        "calories": 50.0
     }
 ]
