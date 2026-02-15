@@ -118,5 +118,15 @@
         "id": 24,
         "name": "Rendang Nyet Berapi",
         "calories": 50.0
+    },
+    {
+        "id": 25,
+        "name": "Mee goreng (per pinggan)",
+        "calories": 450.0
+    },
+    {
+        "id": 26,
+        "name": "Susu (per gelas)",
+        "calories": 150.0
     }
 ]
