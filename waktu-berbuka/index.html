@@ -1,293 +1,303 @@
 <!DOCTYPE html>
 <html lang="ms">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Berbuka • Malaysia</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Playfair+Display:wght@700&amp;display=swap');
-       
-        body {
-            font-family: 'Inter', system-ui, sans-serif;
-            background: linear-gradient(145deg, #0a1f2e 0%, #0f2a2a 50%, #0a1f2e 100%);
-            min-height: 100vh;
-            color: #e2e8f0;
-            overflow-x: hidden;
-        }
-       
-        .glass {
-            background: rgba(15, 23, 42, 0.92);
-            backdrop-filter: blur(24px);
-            border: 1px solid rgba(52, 211, 153, 0.2);
-        }
-       
-        .hero-glow {
-            text-shadow: 0 0 60px rgb(52 211 153);
-        }
-       
-        .countdown-digit {
-            font-size: clamp(3.1rem, 9.8vw, 4.85rem);
-            line-height: 1;
-            font-variant-numeric: tabular-nums;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-       
-        .modal {
-            animation: slideUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-       
-        @keyframes slideUp {
-            from { transform: translateY(120px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Berbuka • Malaysia</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Playfair+Display:wght@700&amp;display=swap');
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: linear-gradient(145deg, #0a1f2e 0%, #0f2a2a 50%, #0a1f2e 100%);
+      min-height: 100vh;
+      color: #e2e8f0;
+      overflow-x: hidden;
+    }
+
+    .glass {
+      background: rgba(15, 23, 42, 0.92);
+      backdrop-filter: blur(24px);
+      border: 1px solid rgba(52, 211, 153, 0.2);
+    }
+
+    .hero-glow {
+      text-shadow: 0 0 60px rgb(52 211 153);
+    }
+
+    .countdown-digit {
+      font-size: clamp(3.1rem, 9.8vw, 4.85rem);
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .modal {
+      animation: slideUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    @keyframes slideUp {
+      from {
+        transform: translateY(120px);
+        opacity: 0;
+      }
+
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+  </style>
 </head>
+
 <body>
-    <div class="max-w-md mx-auto px-5 sm:px-6 pt-8 pb-24">
-       
-        <!-- Header -->
-        <div class="flex items-center justify-between mb-10">
-            <div class="flex items-center gap-x-3">
-                <div class="w-11 h-11 bg-gradient-to-br from-emerald-400 via-cyan-400 to-teal-500 rounded-2xl flex items-center justify-center shadow-lg text-3xl">🌙</div>
-                <div>
-                    <h1 class="text-3xl sm:text-4xl font-bold tracking-[-2px] hero-glow text-white">BERBUKA</h1>
-                    <p class="text-emerald-300 text-xs tracking-[2px] -mt-1">MALAYSIA</p>
-                </div>
-            </div>
-           
-            <button onclick="showZoneModal()"
-                    class="glass flex items-center gap-x-3 px-5 py-3 rounded-3xl text-sm font-medium hover:scale-105 transition">
-                <i class="fa-solid fa-location-dot text-emerald-400"></i>
-                <span id="current-zone-name" class="font-semibold text-white">Melaka</span>
-                <i class="fa-solid fa-chevron-down text-xs"></i>
-            </button>
-        </div>
+  <div class="max-w-md mx-auto px-5 sm:px-6 pt-8 pb-24">
 
-        <!-- Main Countdown -->
-        <div class="glass rounded-3xl p-8 sm:p-9 text-center mb-8 shadow-2xl border border-emerald-400/10">
-            <div id="countdown-header" class="uppercase text-emerald-400 text-xs font-medium tracking-[3px] mb-6">
-                MEMUAT...
-            </div>
-           
-            <div id="countdown" class="flex justify-center items-baseline gap-x-4 sm:gap-x-7 text-6xl font-light mb-8">
-                <div class="text-center">
-                    <span id="hours" class="countdown-digit block text-white">00</span>
-                    <span class="text-[10px] text-emerald-200/80 tracking-widest">JAM</span>
-                </div>
-                <div class="text-5xl sm:text-6xl text-emerald-400/30">:</div>
-                <div class="text-center">
-                    <span id="minutes" class="countdown-digit block text-white">00</span>
-                    <span class="text-[10px] text-emerald-200/80 tracking-widest">MINIT</span>
-                </div>
-                <div class="text-5xl sm:text-6xl text-emerald-400/30">:</div>
-                <div class="text-center">
-                    <span id="seconds" class="countdown-digit block text-white">00</span>
-                    <span class="text-[10px] text-emerald-200/80 tracking-widest">SAAT</span>
-                </div>
-            </div>
-           
-            <div class="flex items-center justify-center gap-x-3">
-                <i id="target-icon" class="fa-solid fa-moon text-xl text-emerald-300"></i>
-                <span id="target-time" class="font-mono text-2xl sm:text-3xl text-white">--:--</span>
-                <span id="target-name" class="text-white/70 text-sm">• Memuat...</span>
-            </div>
+    <!-- Header -->
+    <div class="flex items-center justify-between mb-10">
+      <div class="flex items-center gap-x-3">
+        <div
+          class="w-11 h-11 bg-gradient-to-br from-emerald-400 via-cyan-400 to-teal-500 rounded-2xl flex items-center justify-center shadow-lg text-3xl">
+          🌙</div>
+        <div>
+          <h1 class="text-3xl sm:text-4xl font-bold tracking-[-2px] hero-glow text-white">BERBUKA</h1>
+          <p class="text-emerald-300 text-xs tracking-[2px] -mt-1">MALAYSIA</p>
         </div>
+      </div>
 
-        <!-- Date -->
-        <div class="text-center mb-10">
-            <p id="gregorian-date" class="text-2xl font-medium">Memuat tarikh...</p>
-            <p id="hijri-date" class="text-emerald-400 text-lg font-light"></p>
-        </div>
-
-        <!-- Prayer Times -->
-        <div class="glass rounded-3xl p-6 sm:p-8">
-            <div class="flex justify-between items-center mb-7">
-                <div class="flex items-center gap-x-3">
-                    <i class="fa-solid fa-mosque text-emerald-400"></i>
-                    <span class="font-medium text-lg">Waktu Solat Hari Ini</span>
-                </div>
-                <span id="zone-code-small" class="text-xs bg-emerald-900/70 px-4 py-1 rounded-3xl font-mono"></span>
-            </div>
-           
-            <div id="prayer-list" class="space-y-4 sm:space-y-5">
-                <!-- JS will fill this -->
-            </div>
-        </div>
-
-        <!-- Footer -->
-        <div class="text-center mt-12 text-white/30 text-xs">Data JAKIM • &amp; Selamat Berbuka</div>
+      <button onclick="showZoneModal()"
+        class="glass flex items-center gap-x-3 px-5 py-3 rounded-3xl text-sm font-medium hover:scale-105 transition">
+        <i class="fa-solid fa-location-dot text-emerald-400"></i>
+        <span id="current-zone-name" class="font-semibold text-white">Melaka</span>
+        <i class="fa-solid fa-chevron-down text-xs"></i>
+      </button>
     </div>
 
-    <!-- Zone Modal -->
-    <div onclick="if(event.target.id==='modal-overlay') hideZoneModal()" id="modal-overlay"
-         class="fixed inset-0 bg-black/80 hidden flex items-end z-50">
-        <div onclick="event.stopImmediatePropagation()"
-             class="modal bg-slate-950 w-full rounded-t-3xl max-h-[85vh] overflow-hidden">
-           
-            <div class="p-6 border-b border-white/10 sticky top-0 bg-slate-950">
-                <div class="flex items-center justify-between mb-4">
-                    <h2 class="text-xl font-semibold">Pilih Zon</h2>
-                    <button onclick="hideZoneModal()" class="text-3xl leading-none text-white/60">×</button>
-                </div>
-                <input id="zone-search-input" onkeyup="filterZones()"
-                       type="text" placeholder="Cari negeri atau daerah..."
-                       class="w-full bg-slate-900 border border-white/10 rounded-3xl py-4 px-6 outline-none text-sm">
-            </div>
-           
-            <div id="zones-list" class="overflow-auto max-h-[calc(85vh-160px)] p-4 text-sm">
-                <!-- JS populated -->
-            </div>
+    <!-- Main Countdown -->
+    <div class="glass rounded-3xl p-8 sm:p-9 text-center mb-8 shadow-2xl border border-emerald-400/10">
+      <div id="countdown-header" class="uppercase text-emerald-400 text-xs font-medium tracking-[3px] mb-6">
+        MEMUAT...
+      </div>
+
+      <div id="countdown" class="flex justify-center items-baseline gap-x-4 sm:gap-x-7 text-6xl font-light mb-8">
+        <div class="text-center">
+          <span id="hours" class="countdown-digit block text-white">00</span>
+          <span class="text-[10px] text-emerald-200/80 tracking-widest">JAM</span>
         </div>
+        <div class="text-5xl sm:text-6xl text-emerald-400/30">:</div>
+        <div class="text-center">
+          <span id="minutes" class="countdown-digit block text-white">00</span>
+          <span class="text-[10px] text-emerald-200/80 tracking-widest">MINIT</span>
+        </div>
+        <div class="text-5xl sm:text-6xl text-emerald-400/30">:</div>
+        <div class="text-center">
+          <span id="seconds" class="countdown-digit block text-white">00</span>
+          <span class="text-[10px] text-emerald-200/80 tracking-widest">SAAT</span>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-center gap-x-3">
+        <i id="target-icon" class="fa-solid fa-moon text-xl text-emerald-300"></i>
+        <span id="target-time" class="font-mono text-2xl sm:text-3xl text-white">--:--</span>
+        <span id="target-name" class="text-white/70 text-sm">• Memuat...</span>
+      </div>
     </div>
 
-    <script>
-        const API_BASE = "https://api.waktusolat.app";
-        let currentZoneCode = localStorage.getItem("berbukaZone") || "MLK01";
-        let prayerData = null;
-        let todayPrayer = null;
-        let tomorrowPrayer = null;
-        let countdownInterval = null;
-        const zonesData = [ /* FULL LIST SAME AS BEFORE - 87 zones */
-            {"jakimCode":"JHR01","negeri":"Johor","daerah":"Pulau Aur dan Pulau Pemanggil"},
-            {"jakimCode":"JHR02","negeri":"Johor","daerah":"Johor Bahru, Kota Tinggi, Mersing, Kulai"},
-            {"jakimCode":"JHR03","negeri":"Johor","daerah":"Kluang, Pontian"},
-            {"jakimCode":"JHR04","negeri":"Johor","daerah":"Batu Pahat, Muar, Segamat, Gemas Johor, Tangkak"},
-            {"jakimCode":"KDH01","negeri":"Kedah","daerah":"Kota Setar, Kubang Pasu, Pokok Sena (Daerah Kecil)"},
-            {"jakimCode":"KDH02","negeri":"Kedah","daerah":"Kuala Muda, Yan, Pendang"},
-            {"jakimCode":"KDH03","negeri":"Kedah","daerah":"Padang Terap, Sik"},
-            {"jakimCode":"KDH04","negeri":"Kedah","daerah":"Baling"},
-            {"jakimCode":"KDH05","negeri":"Kedah","daerah":"Bandar Baharu, Kulim"},
-            {"jakimCode":"KDH06","negeri":"Kedah","daerah":"Langkawi"},
-            {"jakimCode":"KDH07","negeri":"Kedah","daerah":"Puncak Gunung Jerai"},
-            {"jakimCode":"KTN01","negeri":"Kelantan","daerah":"Bachok, Kota Bharu, Machang, Pasir Mas, Pasir Puteh, Tanah Merah, Tumpat, Kuala Krai, Mukim Chiku"},
-            {"jakimCode":"KTN02","negeri":"Kelantan","daerah":"Gua Musang (Daerah Galas Dan Bertam), Jeli, Jajahan Kecil Lojing"},
-            {"jakimCode":"MLK01","negeri":"Melaka","daerah":"SELURUH NEGERI MELAKA"},
-            {"jakimCode":"NGS01","negeri":"Negeri Sembilan","daerah":"Tampin, Jempol"},
-            {"jakimCode":"NGS02","negeri":"Negeri Sembilan","daerah":"Jelebu, Kuala Pilah, Rembau"},
-            {"jakimCode":"NGS03","negeri":"Negeri Sembilan","daerah":"Port Dickson, Seremban"},
-            {"jakimCode":"PHG01","negeri":"Pahang","daerah":"Pulau Tioman"},
-            {"jakimCode":"PHG02","negeri":"Pahang","daerah":"Kuantan, Pekan, Muadzam Shah"},
-            {"jakimCode":"PHG03","negeri":"Pahang","daerah":"Jerantut, Temerloh, Maran, Bera, Chenor, Jengka"},
-            {"jakimCode":"PHG04","negeri":"Pahang","daerah":"Bentong, Lipis, Raub"},
-            {"jakimCode":"PHG05","negeri":"Pahang","daerah":"Genting Sempah, Janda Baik, Bukit Tinggi"},
-            {"jakimCode":"PHG06","negeri":"Pahang","daerah":"Cameron Highlands, Genting Higlands, Bukit Fraser"},
-            {"jakimCode":"PHG07","negeri":"Pahang","daerah":"Zon Khas Daerah Rompin, (Mukim Rompin, Mukim Endau, Mukim Pontian)"},
-            {"jakimCode":"PRK01","negeri":"Perak","daerah":"Tapah, Slim River, Tanjung Malim"},
-            {"jakimCode":"PRK02","negeri":"Perak","daerah":"Kuala Kangsar, Sg. Siput , Ipoh, Batu Gajah, Kampar"},
-            {"jakimCode":"PRK03","negeri":"Perak","daerah":"Lenggong, Pengkalan Hulu, Grik"},
-            {"jakimCode":"PRK04","negeri":"Perak","daerah":"Temengor, Belum"},
-            {"jakimCode":"PRK05","negeri":"Perak","daerah":"Kg Gajah, Teluk Intan, Bagan Datuk, Seri Iskandar, Beruas, Parit, Lumut, Sitiawan, Pulau Pangkor"},
-            {"jakimCode":"PRK06","negeri":"Perak","daerah":"Selama, Taiping, Bagan Serai, Parit Buntar"},
-            {"jakimCode":"PRK07","negeri":"Perak","daerah":"Bukit Larut"},
-            {"jakimCode":"PLS01","negeri":"Perlis","daerah":"SELURUH NEGERI PERLIS"},
-            {"jakimCode":"PNG01","negeri":"Pulau Pinang","daerah":"SELURUH NEGERI PULAU PINANG"},
-            {"jakimCode":"SBH01","negeri":"Sabah","daerah":"Bahagian Sandakan (Timur), Bukit Garam, Semawang, Temanggong, Tambisan, Bandar Sandakan, Sukau"},
-            {"jakimCode":"SBH02","negeri":"Sabah","daerah":"Beluran, Telupid, Pinangah, Terusan, Kuamut, Bahagian Sandakan (Barat)"},
-            {"jakimCode":"SBH03","negeri":"Sabah","daerah":"Lahad Datu, Silabukan, Kunak, Sahabat, Semporna, Tungku, Bahagian Tawau (Timur)"},
-            {"jakimCode":"SBH04","negeri":"Sabah","daerah":"Bandar Tawau, Balong, Merotai, Kalabakan, Bahagian Tawau (Barat)"},
-            {"jakimCode":"SBH05","negeri":"Sabah","daerah":"Kudat, Kota Marudu, Pitas, Pulau Banggi, Bahagian Kudat"},
-            {"jakimCode":"SBH06","negeri":"Sabah","daerah":"Gunung Kinabalu"},
-            {"jakimCode":"SBH07","negeri":"Sabah","daerah":"Kota Kinabalu, Ranau, Kota Belud, Tuaran, Penampang, Papar, Putatan, Bahagian Pantai Barat"},
-            {"jakimCode":"SBH08","negeri":"Sabah","daerah":"Pensiangan, Keningau, Tambunan, Nabawan, Bahagian Pendalaman (Atas)"},
-            {"jakimCode":"SBH09","negeri":"Sabah","daerah":"Beaufort, Kuala Penyu, Sipitang, Tenom, Long Pasia, Membakut, Weston, Bahagian Pendalaman (Bawah)"},
-            {"jakimCode":"SWK01","negeri":"Sarawak","daerah":"Limbang, Lawas, Sundar, Trusan"},
-            {"jakimCode":"SWK02","negeri":"Sarawak","daerah":"Miri, Niah, Bekenu, Sibuti, Marudi"},
-            {"jakimCode":"SWK03","negeri":"Sarawak","daerah":"Pandan, Belaga, Suai, Tatau, Sebauh, Bintulu"},
-            {"jakimCode":"SWK04","negeri":"Sarawak","daerah":"Sibu, Mukah, Dalat, Song, Igan, Oya, Balingian, Kanowit, Kapit"},
-            {"jakimCode":"SWK05","negeri":"Sarawak","daerah":"Sarikei, Matu, Julau, Rajang, Daro, Bintangor, Belawai"},
-            {"jakimCode":"SWK06","negeri":"Sarawak","daerah":"Lubok Antu, Sri Aman, Roban, Debak, Kabong, Lingga, Engkelili, Betong, Spaoh, Pusa, Saratok"},
-            {"jakimCode":"SWK07","negeri":"Sarawak","daerah":"Serian, Simunjan, Samarahan, Sebuyau, Meludam"},
-            {"jakimCode":"SWK08","negeri":"Sarawak","daerah":"Kuching, Bau, Lundu, Sematan"},
-            {"jakimCode":"SWK09","negeri":"Sarawak","daerah":"Zon Khas (Kampung Patarikan)"},
-            {"jakimCode":"SGR01","negeri":"Selangor","daerah":"Gombak, Petaling, Sepang, Hulu Langat, Hulu Selangor, Shah Alam"},
-            {"jakimCode":"SGR02","negeri":"Selangor","daerah":"Kuala Selangor, Sabak Bernam"},
-            {"jakimCode":"SGR03","negeri":"Selangor","daerah":"Klang, Kuala Langat"},
-            {"jakimCode":"TRG01","negeri":"Terengganu","daerah":"Kuala Terengganu, Marang, Kuala Nerus"},
-            {"jakimCode":"TRG02","negeri":"Terengganu","daerah":"Besut, Setiu"},
-            {"jakimCode":"TRG03","negeri":"Terengganu","daerah":"Hulu Terengganu"},
-            {"jakimCode":"TRG04","negeri":"Terengganu","daerah":"Dungun, Kemaman"},
-            {"jakimCode":"WLY01","negeri":"Wilayah Persekutuan","daerah":"Kuala Lumpur, Putrajaya"},
-            {"jakimCode":"WLY02","negeri":"Wilayah Persekutuan","daerah":"Labuan"}
-        ];
+    <!-- Date -->
+    <div class="text-center mb-10">
+      <p id="gregorian-date" class="text-2xl font-medium">Memuat tarikh...</p>
+      <p id="hijri-date" class="text-emerald-400 text-lg font-light"></p>
+    </div>
 
-        async function loadPrayerTimes(zoneCode) {
-            try {
-                const res = await fetch(`${API_BASE}/v2/solat/${zoneCode}`);
-                if (!res.ok) throw new Error("API error");
-                prayerData = await res.json();
-                const today = new Date();
-                let dayIndex = today.getDate() - 1;
-                if (dayIndex < 0 || dayIndex >= prayerData.prayers.length) dayIndex = Math.min(1, prayerData.prayers.length - 1);
-                todayPrayer = prayerData.prayers[dayIndex] || prayerData.prayers[0];
-                tomorrowPrayer = prayerData.prayers[dayIndex + 1] || prayerData.prayers[prayerData.prayers.length - 1] || todayPrayer;
-                renderZoneButton();
-                renderPrayerTimes();
-                startSmartCountdown();
-                updateDateDisplay();
-            } catch (e) {
-                console.error(e);
-                document.getElementById("countdown-header").textContent = "TIADA DATA";
-                document.getElementById("target-time").textContent = "--:--";
-            }
-        }
+    <!-- Prayer Times -->
+    <div class="glass rounded-3xl p-6 sm:p-8">
+      <div class="flex justify-between items-center mb-7">
+        <div class="flex items-center gap-x-3">
+          <i class="fa-solid fa-mosque text-emerald-400"></i>
+          <span class="font-medium text-lg">Waktu Solat Hari Ini</span>
+        </div>
+        <span id="zone-code-small" class="text-xs bg-emerald-900/70 px-4 py-1 rounded-3xl font-mono"></span>
+      </div>
 
-        function getNextTarget() {
-            const now = Math.floor(Date.now() / 1000);
-            if (!todayPrayer || !tomorrowPrayer) return { unix: now + 3600, label: "MASA KE MAGHRIB", name: "Maghrib", icon: "fa-moon" };
-            if (now < todayPrayer.maghrib) {
-                return { unix: todayPrayer.maghrib, label: "MASA KE MAGHRIB", name: "Maghrib", icon: "fa-moon" };
-            }
-            if (now < tomorrowPrayer.fajr) {
-                return { unix: tomorrowPrayer.fajr, label: "MASA KE SUBUH", name: "Subuh", icon: "fa-sun" };
-            }
-            return { unix: tomorrowPrayer.maghrib, label: "MASA KE MAGHRIB", name: "Maghrib", icon: "fa-moon" };
-        }
+      <div id="prayer-list" class="space-y-4 sm:space-y-5">
+        <!-- JS will fill this -->
+      </div>
+    </div>
 
-        function startSmartCountdown() {
-            if (countdownInterval) clearInterval(countdownInterval);
-            countdownInterval = setInterval(() => {
-                const target = getNextTarget();
-                document.getElementById("countdown-header").textContent = target.label;
-                let diff = (target.unix * 1000) - Date.now();
-                if (diff < 0) diff = 0;
-                const h = Math.floor(diff / 3600000);
-                const m = Math.floor((diff % 3600000) / 60000);
-                const s = Math.floor((diff % 60000) / 1000);
-                document.getElementById("hours").textContent = String(h).padStart(2, '0');
-                document.getElementById("minutes").textContent = String(m).padStart(2, '0');
-                document.getElementById("seconds").textContent = String(s).padStart(2, '0');
-                const timeStr = new Date(target.unix * 1000).toLocaleTimeString('ms-MY', {hour:'2-digit', minute:'2-digit'});
-                document.getElementById("target-time").textContent = timeStr;
-                document.getElementById("target-name").innerHTML = `• ${target.name}`;
-                document.getElementById("target-icon").className = `fa-solid ${target.icon} text-xl text-emerald-300`;
-            }, 1000);
-        }
+    <!-- Footer -->
+    <div class="text-center mt-12 text-white/30 text-xs">Data JAKIM • &amp; Selamat Berbuka</div>
+  </div>
 
-        function safeTime(timeUnix) {
-            if (!timeUnix || isNaN(timeUnix)) return "--:--";
-            return new Date(timeUnix * 1000).toLocaleTimeString('ms-MY', {hour:'2-digit', minute:'2-digit'});
-        }
+  <!-- Zone Modal -->
+  <div onclick="if(event.target.id==='modal-overlay') hideZoneModal()" id="modal-overlay"
+    class="fixed inset-0 bg-black/80 hidden flex items-end z-50">
+    <div onclick="event.stopImmediatePropagation()"
+      class="modal bg-slate-950 w-full rounded-t-3xl max-h-[85vh] overflow-hidden">
 
-        function renderPrayerTimes() {
-            if (!todayPrayer) return;
-           
-            const list = document.getElementById("prayer-list");
-            const imsakTime = todayPrayer.imsak || (todayPrayer.fajr - 600);
-            const prayers = [
-                {name: "Imsak", time: imsakTime, icon: "🌙"},
-                {name: "Subuh", time: todayPrayer.fajr, icon: "🌅"},
-                {name: "Syuruk", time: todayPrayer.syuruk, icon: "☀️"},
-                {name: "Zohor", time: todayPrayer.dhuhr, icon: "🕌"},
-                {name: "Asar", time: todayPrayer.asr, icon: "🌤️"},
-                {name: "Maghrib",time: todayPrayer.maghrib,icon: "🌅"},
-                {name: "Isyak", time: todayPrayer.isha, icon: "🌙"}
-            ];
-           
-            let html = "";
-            prayers.forEach(p => {
-                html += `
+      <div class="p-6 border-b border-white/10 sticky top-0 bg-slate-950">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-xl font-semibold">Pilih Zon</h2>
+          <button onclick="hideZoneModal()" class="text-3xl leading-none text-white/60">×</button>
+        </div>
+        <input id="zone-search-input" onkeyup="filterZones()" type="text" placeholder="Cari negeri atau daerah..."
+          class="w-full bg-slate-900 border border-white/10 rounded-3xl py-4 px-6 outline-none text-sm">
+      </div>
+
+      <div id="zones-list" class="overflow-auto max-h-[calc(85vh-160px)] p-4 text-sm">
+        <!-- JS populated -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const API_BASE = "https://api.waktusolat.app";
+    let currentZoneCode = localStorage.getItem("berbukaZone") || "MLK01";
+    let prayerData = null;
+    let todayPrayer = null;
+    let tomorrowPrayer = null;
+    let countdownInterval = null;
+    const zonesData = [ /* FULL LIST SAME AS BEFORE - 87 zones */
+      {"jakimCode": "JHR01", "negeri": "Johor", "daerah": "Pulau Aur dan Pulau Pemanggil"},
+      {"jakimCode": "JHR02", "negeri": "Johor", "daerah": "Johor Bahru, Kota Tinggi, Mersing, Kulai"},
+      {"jakimCode": "JHR03", "negeri": "Johor", "daerah": "Kluang, Pontian"},
+      {"jakimCode": "JHR04", "negeri": "Johor", "daerah": "Batu Pahat, Muar, Segamat, Gemas Johor, Tangkak"},
+      {"jakimCode": "KDH01", "negeri": "Kedah", "daerah": "Kota Setar, Kubang Pasu, Pokok Sena (Daerah Kecil)"},
+      {"jakimCode": "KDH02", "negeri": "Kedah", "daerah": "Kuala Muda, Yan, Pendang"},
+      {"jakimCode": "KDH03", "negeri": "Kedah", "daerah": "Padang Terap, Sik"},
+      {"jakimCode": "KDH04", "negeri": "Kedah", "daerah": "Baling"},
+      {"jakimCode": "KDH05", "negeri": "Kedah", "daerah": "Bandar Baharu, Kulim"},
+      {"jakimCode": "KDH06", "negeri": "Kedah", "daerah": "Langkawi"},
+      {"jakimCode": "KDH07", "negeri": "Kedah", "daerah": "Puncak Gunung Jerai"},
+      {"jakimCode": "KTN01", "negeri": "Kelantan", "daerah": "Bachok, Kota Bharu, Machang, Pasir Mas, Pasir Puteh, Tanah Merah, Tumpat, Kuala Krai, Mukim Chiku"},
+      {"jakimCode": "KTN02", "negeri": "Kelantan", "daerah": "Gua Musang (Daerah Galas Dan Bertam), Jeli, Jajahan Kecil Lojing"},
+      {"jakimCode": "MLK01", "negeri": "Melaka", "daerah": "SELURUH NEGERI MELAKA"},
+      {"jakimCode": "NGS01", "negeri": "Negeri Sembilan", "daerah": "Tampin, Jempol"},
+      {"jakimCode": "NGS02", "negeri": "Negeri Sembilan", "daerah": "Jelebu, Kuala Pilah, Rembau"},
+      {"jakimCode": "NGS03", "negeri": "Negeri Sembilan", "daerah": "Port Dickson, Seremban"},
+      {"jakimCode": "PHG01", "negeri": "Pahang", "daerah": "Pulau Tioman"},
+      {"jakimCode": "PHG02", "negeri": "Pahang", "daerah": "Kuantan, Pekan, Muadzam Shah"},
+      {"jakimCode": "PHG03", "negeri": "Pahang", "daerah": "Jerantut, Temerloh, Maran, Bera, Chenor, Jengka"},
+      {"jakimCode": "PHG04", "negeri": "Pahang", "daerah": "Bentong, Lipis, Raub"},
+      {"jakimCode": "PHG05", "negeri": "Pahang", "daerah": "Genting Sempah, Janda Baik, Bukit Tinggi"},
+      {"jakimCode": "PHG06", "negeri": "Pahang", "daerah": "Cameron Highlands, Genting Higlands, Bukit Fraser"},
+      {"jakimCode": "PHG07", "negeri": "Pahang", "daerah": "Zon Khas Daerah Rompin, (Mukim Rompin, Mukim Endau, Mukim Pontian)"},
+      {"jakimCode": "PRK01", "negeri": "Perak", "daerah": "Tapah, Slim River, Tanjung Malim"},
+      {"jakimCode": "PRK02", "negeri": "Perak", "daerah": "Kuala Kangsar, Sg. Siput , Ipoh, Batu Gajah, Kampar"},
+      {"jakimCode": "PRK03", "negeri": "Perak", "daerah": "Lenggong, Pengkalan Hulu, Grik"},
+      {"jakimCode": "PRK04", "negeri": "Perak", "daerah": "Temengor, Belum"},
+      {"jakimCode": "PRK05", "negeri": "Perak", "daerah": "Kg Gajah, Teluk Intan, Bagan Datuk, Seri Iskandar, Beruas, Parit, Lumut, Sitiawan, Pulau Pangkor"},
+      {"jakimCode": "PRK06", "negeri": "Perak", "daerah": "Selama, Taiping, Bagan Serai, Parit Buntar"},
+      {"jakimCode": "PRK07", "negeri": "Perak", "daerah": "Bukit Larut"},
+      {"jakimCode": "PLS01", "negeri": "Perlis", "daerah": "SELURUH NEGERI PERLIS"},
+      {"jakimCode": "PNG01", "negeri": "Pulau Pinang", "daerah": "SELURUH NEGERI PULAU PINANG"},
+      {"jakimCode": "SBH01", "negeri": "Sabah", "daerah": "Bahagian Sandakan (Timur), Bukit Garam, Semawang, Temanggong, Tambisan, Bandar Sandakan, Sukau"},
+      {"jakimCode": "SBH02", "negeri": "Sabah", "daerah": "Beluran, Telupid, Pinangah, Terusan, Kuamut, Bahagian Sandakan (Barat)"},
+      {"jakimCode": "SBH03", "negeri": "Sabah", "daerah": "Lahad Datu, Silabukan, Kunak, Sahabat, Semporna, Tungku, Bahagian Tawau (Timur)"},
+      {"jakimCode": "SBH04", "negeri": "Sabah", "daerah": "Bandar Tawau, Balong, Merotai, Kalabakan, Bahagian Tawau (Barat)"},
+      {"jakimCode": "SBH05", "negeri": "Sabah", "daerah": "Kudat, Kota Marudu, Pitas, Pulau Banggi, Bahagian Kudat"},
+      {"jakimCode": "SBH06", "negeri": "Sabah", "daerah": "Gunung Kinabalu"},
+      {"jakimCode": "SBH07", "negeri": "Sabah", "daerah": "Kota Kinabalu, Ranau, Kota Belud, Tuaran, Penampang, Papar, Putatan, Bahagian Pantai Barat"},
+      {"jakimCode": "SBH08", "negeri": "Sabah", "daerah": "Pensiangan, Keningau, Tambunan, Nabawan, Bahagian Pendalaman (Atas)"},
+      {"jakimCode": "SBH09", "negeri": "Sabah", "daerah": "Beaufort, Kuala Penyu, Sipitang, Tenom, Long Pasia, Membakut, Weston, Bahagian Pendalaman (Bawah)"},
+      {"jakimCode": "SWK01", "negeri": "Sarawak", "daerah": "Limbang, Lawas, Sundar, Trusan"},
+      {"jakimCode": "SWK02", "negeri": "Sarawak", "daerah": "Miri, Niah, Bekenu, Sibuti, Marudi"},
+      {"jakimCode": "SWK03", "negeri": "Sarawak", "daerah": "Pandan, Belaga, Suai, Tatau, Sebauh, Bintulu"},
+      {"jakimCode": "SWK04", "negeri": "Sarawak", "daerah": "Sibu, Mukah, Dalat, Song, Igan, Oya, Balingian, Kanowit, Kapit"},
+      {"jakimCode": "SWK05", "negeri": "Sarawak", "daerah": "Sarikei, Matu, Julau, Rajang, Daro, Bintangor, Belawai"},
+      {"jakimCode": "SWK06", "negeri": "Sarawak", "daerah": "Lubok Antu, Sri Aman, Roban, Debak, Kabong, Lingga, Engkelili, Betong, Spaoh, Pusa, Saratok"},
+      {"jakimCode": "SWK07", "negeri": "Sarawak", "daerah": "Serian, Simunjan, Samarahan, Sebuyau, Meludam"},
+      {"jakimCode": "SWK08", "negeri": "Sarawak", "daerah": "Kuching, Bau, Lundu, Sematan"},
+      {"jakimCode": "SWK09", "negeri": "Sarawak", "daerah": "Zon Khas (Kampung Patarikan)"},
+      {"jakimCode": "SGR01", "negeri": "Selangor", "daerah": "Gombak, Petaling, Sepang, Hulu Langat, Hulu Selangor, Shah Alam"},
+      {"jakimCode": "SGR02", "negeri": "Selangor", "daerah": "Kuala Selangor, Sabak Bernam"},
+      {"jakimCode": "SGR03", "negeri": "Selangor", "daerah": "Klang, Kuala Langat"},
+      {"jakimCode": "TRG01", "negeri": "Terengganu", "daerah": "Kuala Terengganu, Marang, Kuala Nerus"},
+      {"jakimCode": "TRG02", "negeri": "Terengganu", "daerah": "Besut, Setiu"},
+      {"jakimCode": "TRG03", "negeri": "Terengganu", "daerah": "Hulu Terengganu"},
+      {"jakimCode": "TRG04", "negeri": "Terengganu", "daerah": "Dungun, Kemaman"},
+      {"jakimCode": "WLY01", "negeri": "Wilayah Persekutuan", "daerah": "Kuala Lumpur, Putrajaya"},
+      {"jakimCode": "WLY02", "negeri": "Wilayah Persekutuan", "daerah": "Labuan"}
+    ];
+
+    async function loadPrayerTimes(zoneCode) {
+      try {
+        const res = await fetch(`${API_BASE}/v2/solat/${zoneCode}`);
+        if (!res.ok) throw new Error("API error");
+        prayerData = await res.json();
+        const today = new Date();
+        let dayIndex = today.getDate() - 1;
+        if (dayIndex < 0 || dayIndex >= prayerData.prayers.length) dayIndex = Math.min(1, prayerData.prayers.length - 1);
+        todayPrayer = prayerData.prayers[dayIndex] || prayerData.prayers[0];
+        tomorrowPrayer = prayerData.prayers[dayIndex + 1] || prayerData.prayers[prayerData.prayers.length - 1] || todayPrayer;
+        renderZoneButton();
+        renderPrayerTimes();
+        startSmartCountdown();
+        updateDateDisplay();
+      } catch (e) {
+        console.error(e);
+        document.getElementById("countdown-header").textContent = "TIADA DATA";
+        document.getElementById("target-time").textContent = "--:--";
+      }
+    }
+
+    function getNextTarget() {
+      const now = Math.floor(Date.now() / 1000);
+      if (!todayPrayer || !tomorrowPrayer) return {unix: now + 3600, label: "MASA KE MAGHRIB", name: "Maghrib", icon: "fa-moon"};
+      if (now < todayPrayer.maghrib) {
+        return {unix: todayPrayer.maghrib, label: "MASA KE MAGHRIB", name: "Maghrib", icon: "fa-moon"};
+      }
+      if (now < tomorrowPrayer.fajr) {
+        return {unix: tomorrowPrayer.fajr, label: "MASA KE SUBUH", name: "Subuh", icon: "fa-sun"};
+      }
+      return {unix: tomorrowPrayer.maghrib, label: "MASA KE MAGHRIB", name: "Maghrib", icon: "fa-moon"};
+    }
+
+    function startSmartCountdown() {
+      if (countdownInterval) clearInterval(countdownInterval);
+      countdownInterval = setInterval(() => {
+        const target = getNextTarget();
+        document.getElementById("countdown-header").textContent = target.label;
+        let diff = (target.unix * 1000) - Date.now();
+        if (diff < 0) diff = 0;
+        const h = Math.floor(diff / 3600000);
+        const m = Math.floor((diff % 3600000) / 60000);
+        const s = Math.floor((diff % 60000) / 1000);
+        document.getElementById("hours").textContent = String(h).padStart(2, '0');
+        document.getElementById("minutes").textContent = String(m).padStart(2, '0');
+        document.getElementById("seconds").textContent = String(s).padStart(2, '0');
+        const timeStr = new Date(target.unix * 1000).toLocaleTimeString('ms-MY', {hour: '2-digit', minute: '2-digit'});
+        document.getElementById("target-time").textContent = timeStr;
+        document.getElementById("target-name").innerHTML = `• ${target.name}`;
+        document.getElementById("target-icon").className = `fa-solid ${target.icon} text-xl text-emerald-300`;
+      }, 1000);
+    }
+
+    function safeTime(timeUnix) {
+      if (!timeUnix || isNaN(timeUnix)) return "--:--";
+      return new Date(timeUnix * 1000).toLocaleTimeString('ms-MY', {hour: '2-digit', minute: '2-digit'});
+    }
+
+    function renderPrayerTimes() {
+      if (!todayPrayer) return;
+
+      const list = document.getElementById("prayer-list");
+      const imsakTime = todayPrayer.imsak || (todayPrayer.fajr - 600);
+      const prayers = [
+        {name: "Imsak", time: imsakTime, icon: "🌙"},
+        {name: "Subuh", time: todayPrayer.fajr, icon: "🌅"},
+        {name: "Syuruk", time: todayPrayer.syuruk, icon: "☀️"},
+        {name: "Zohor", time: todayPrayer.dhuhr, icon: "🕌"},
+        {name: "Asar", time: todayPrayer.asr, icon: "🌤️"},
+        {name: "Maghrib", time: todayPrayer.maghrib, icon: "🌅"},
+        {name: "Isyak", time: todayPrayer.isha, icon: "🌙"}
+      ];
+
+      let html = "";
+      prayers.forEach(p => {
+        html += `
                     <div class="flex items-center justify-between px-4 sm:px-5 py-4 glass rounded-2xl">
                         <div class="flex items-center gap-x-4">
                             <span class="text-3xl">${p.icon}</span>
@@ -295,47 +305,47 @@
                         </div>
                         <span class="font-mono text-xl">${safeTime(p.time)}</span>
                     </div>`;
-            });
-            list.innerHTML = html;
-            document.getElementById("zone-code-small").textContent = currentZoneCode;
-        }
+      });
+      list.innerHTML = html;
+      document.getElementById("zone-code-small").textContent = currentZoneCode;
+    }
 
-        function renderZoneButton() {
-            const zone = zonesData.find(z => z.jakimCode === currentZoneCode);
-            document.getElementById("current-zone-name").textContent = zone ? zone.negeri : "Melaka";
-        }
+    function renderZoneButton() {
+      const zone = zonesData.find(z => z.jakimCode === currentZoneCode);
+      document.getElementById("current-zone-name").textContent = zone ? zone.negeri : "Melaka";
+    }
 
-        function updateDateDisplay() {
-            const now = new Date();
-            const options = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
-            document.getElementById("gregorian-date").textContent = now.toLocaleDateString('ms-MY', options).replace(',', '');
-            if (todayPrayer) document.getElementById("hijri-date").textContent = todayPrayer.hijri || "";
-        }
+    function updateDateDisplay() {
+      const now = new Date();
+      const options = {weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'};
+      document.getElementById("gregorian-date").textContent = now.toLocaleDateString('ms-MY', options).replace(',', '');
+      if (todayPrayer) document.getElementById("hijri-date").textContent = todayPrayer.hijri || "";
+    }
 
-        function showZoneModal() {
-            const modal = document.getElementById("modal-overlay");
-            modal.classList.remove("hidden"); modal.classList.add("flex");
-            renderZoneList(zonesData);
-        }
+    function showZoneModal() {
+      const modal = document.getElementById("modal-overlay");
+      modal.classList.remove("hidden"); modal.classList.add("flex");
+      renderZoneList(zonesData);
+    }
 
-        function hideZoneModal() {
-            const modal = document.getElementById("modal-overlay");
-            modal.classList.add("hidden"); modal.classList.remove("flex");
-        }
+    function hideZoneModal() {
+      const modal = document.getElementById("modal-overlay");
+      modal.classList.add("hidden"); modal.classList.remove("flex");
+    }
 
-        function renderZoneList(filtered) {
-            const container = document.getElementById("zones-list");
-            let html = "";
-            const grouped = {};
-            filtered.forEach(z => {
-                if (!grouped[z.negeri]) grouped[z.negeri] = [];
-                grouped[z.negeri].push(z);
-            });
-            Object.keys(grouped).sort().forEach(negeri => {
-                html += `<div class="mb-6"><div class="uppercase text-emerald-400 text-xs font-medium tracking-widest px-3 mb-2">${negeri}</div>`;
-                grouped[negeri].forEach(zone => {
-                    const selected = zone.jakimCode === currentZoneCode;
-                    html += `
+    function renderZoneList(filtered) {
+      const container = document.getElementById("zones-list");
+      let html = "";
+      const grouped = {};
+      filtered.forEach(z => {
+        if (!grouped[z.negeri]) grouped[z.negeri] = [];
+        grouped[z.negeri].push(z);
+      });
+      Object.keys(grouped).sort().forEach(negeri => {
+        html += `<div class="mb-6"><div class="uppercase text-emerald-400 text-xs font-medium tracking-widest px-3 mb-2">${negeri}</div>`;
+        grouped[negeri].forEach(zone => {
+          const selected = zone.jakimCode === currentZoneCode;
+          html += `
                     <div onclick="selectZone('${zone.jakimCode}')"
                          class="flex justify-between items-center px-5 py-4 hover:bg-white/5 rounded-2xl cursor-pointer ${selected ? 'bg-emerald-900/30 border border-emerald-400' : ''}">
                         <div>
@@ -344,34 +354,35 @@
                         </div>
                         ${selected ? '<i class="fa-solid fa-check text-emerald-400"></i>' : ''}
                     </div>`;
-                });
-                html += `</div>`;
-            });
-            container.innerHTML = html;
-        }
+        });
+        html += `</div>`;
+      });
+      container.innerHTML = html;
+    }
 
-        function filterZones() {
-            const term = document.getElementById("zone-search-input").value.toLowerCase().trim();
-            const filtered = term === "" ? zonesData : zonesData.filter(z =>
-                z.negeri.toLowerCase().includes(term) ||
-                z.daerah.toLowerCase().includes(term) ||
-                z.jakimCode.toLowerCase().includes(term)
-            );
-            renderZoneList(filtered);
-        }
+    function filterZones() {
+      const term = document.getElementById("zone-search-input").value.toLowerCase().trim();
+      const filtered = term === "" ? zonesData : zonesData.filter(z =>
+        z.negeri.toLowerCase().includes(term) ||
+        z.daerah.toLowerCase().includes(term) ||
+        z.jakimCode.toLowerCase().includes(term)
+      );
+      renderZoneList(filtered);
+    }
 
-        window.selectZone = function(code) {
-            currentZoneCode = code;
-            localStorage.setItem("berbukaZone", code);
-            hideZoneModal();
-            loadPrayerTimes(code);
-        };
+    window.selectZone = function (code) {
+      currentZoneCode = code;
+      localStorage.setItem("berbukaZone", code);
+      hideZoneModal();
+      loadPrayerTimes(code);
+    };
 
-        function init() {
-            tailwind.config = { content: [] };
-            loadPrayerTimes(currentZoneCode);
-        }
-        window.onload = init;
-    </script>
+    function init() {
+      tailwind.config = {content: []};
+      loadPrayerTimes(currentZoneCode);
+    }
+    window.onload = init;
+  </script>
 </body>
+
 </html>
