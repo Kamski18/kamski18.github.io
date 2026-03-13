@@ -8,7 +8,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Playfair+Display:wght@700&amp;display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@700&display=swap');
 
     body {
       font-family: 'Inter', system-ui, sans-serif;
@@ -128,7 +128,7 @@
     </div>
 
     <!-- Footer -->
-    <div class="text-center mt-12 text-white/30 text-xs">Data JAKIM • &amp; Selamat Berbuka</div>
+    <div class="text-center mt-12 text-white/30 text-xs">Data JAKIM • Minimal &amp; Clean</div>
   </div>
 
   <!-- Zone Modal -->
@@ -159,7 +159,8 @@
     let todayPrayer = null;
     let tomorrowPrayer = null;
     let countdownInterval = null;
-    const zonesData = [ /* FULL LIST SAME AS BEFORE - 87 zones */
+
+    const zonesData = [
       {"jakimCode": "JHR01", "negeri": "Johor", "daerah": "Pulau Aur dan Pulau Pemanggil"},
       {"jakimCode": "JHR02", "negeri": "Johor", "daerah": "Johor Bahru, Kota Tinggi, Mersing, Kulai"},
       {"jakimCode": "JHR03", "negeri": "Johor", "daerah": "Kluang, Pontian"},
@@ -227,11 +228,18 @@
         const res = await fetch(`${API_BASE}/v2/solat/${zoneCode}`);
         if (!res.ok) throw new Error("API error");
         prayerData = await res.json();
+
         const today = new Date();
+        // dayIndex is 0-based: day 1 of month = index 0
         let dayIndex = today.getDate() - 1;
-        if (dayIndex < 0 || dayIndex >= prayerData.prayers.length) dayIndex = Math.min(1, prayerData.prayers.length - 1);
-        todayPrayer = prayerData.prayers[dayIndex] || prayerData.prayers[0];
-        tomorrowPrayer = prayerData.prayers[dayIndex + 1] || prayerData.prayers[prayerData.prayers.length - 1] || todayPrayer;
+        if (dayIndex < 0) dayIndex = 0;
+        if (dayIndex >= prayerData.prayers.length) dayIndex = prayerData.prayers.length - 1;
+
+        todayPrayer = prayerData.prayers[dayIndex];
+
+        // tomorrow's prayer — wrap to next month's first entry if needed
+        tomorrowPrayer = prayerData.prayers[dayIndex + 1] || prayerData.prayers[prayerData.prayers.length - 1];
+
         renderZoneButton();
         renderPrayerTimes();
         startSmartCountdown();
@@ -243,36 +251,92 @@
       }
     }
 
+    /**
+     * FIX: Determine the next countdown target using actual unix timestamps.
+     *
+     * Islamic prayer day timeline (within a single calendar day):
+     *   Imsak → Subuh → Syuruk → Zohor → Asar → Maghrib → Isyak
+     *
+     * After midnight (12am–Subuh) we are still in the SAME Ramadan night —
+     * i.e. we are waiting for today's Subuh, not tomorrow's Maghrib.
+     *
+     * Priority:
+     *   1. If now < today's Maghrib  → count down to today's Maghrib (berbuka)
+     *   2. If now < today's Fajr (Subuh) — this happens between midnight and Subuh,
+     *      because fajr unix > midnight but still "today" in calendar terms —
+     *      actually after step 1 fails it means Maghrib has passed, so:
+     *   3. If now >= today's Maghrib and now < today's Fajr+next_day →
+     *      count down to tomorrow's Fajr (Subuh esok)
+     *   4. Else count down to tomorrow's Maghrib
+     *
+     * The key insight: after midnight, `now` in unix seconds is GREATER than
+     * todayPrayer.maghrib (which was ~7pm), so we fall through to checking fajr.
+     * todayPrayer.fajr is ~5am that same calendar day, so its unix value is
+     * LESS than midnight. We need tomorrow's fajr for the post-midnight window.
+     */
     function getNextTarget() {
-      const now = Math.floor(Date.now() / 1000);
-      if (!todayPrayer || !tomorrowPrayer) return {unix: now + 3600, label: "MASA KE MAGHRIB", name: "Maghrib", icon: "fa-moon"};
-      if (now < todayPrayer.maghrib) {
-        return {unix: todayPrayer.maghrib, label: "MASA KE MAGHRIB", name: "Maghrib", icon: "fa-moon"};
+      const nowSec = Math.floor(Date.now() / 1000);
+
+      if (!todayPrayer || !tomorrowPrayer) {
+        return {unix: nowSec + 3600, label: "MASA KE MAGHRIB", name: "Maghrib", icon: "fa-moon"};
       }
-      if (now < tomorrowPrayer.fajr) {
-        return {unix: tomorrowPrayer.fajr, label: "MASA KE SUBUH", name: "Subuh", icon: "fa-sun"};
+
+      // Window 1: Before Maghrib today → count to Maghrib (berbuka)
+      if (nowSec < todayPrayer.maghrib) {
+        return {
+          unix: todayPrayer.maghrib,
+          label: "MASA KE MAGHRIB",
+          name: "Maghrib",
+          icon: "fa-moon"
+        };
       }
-      return {unix: tomorrowPrayer.maghrib, label: "MASA KE MAGHRIB", name: "Maghrib", icon: "fa-moon"};
+
+      // Window 2: After Maghrib but before tomorrow's Fajr → count to Subuh esok
+      if (nowSec < tomorrowPrayer.fajr) {
+        return {
+          unix: tomorrowPrayer.fajr,
+          label: "MASA KE SUBUH",
+          name: "Subuh Esok",
+          icon: "fa-sun"
+        };
+      }
+
+      // Window 3: After tomorrow's Fajr (i.e. it's now daytime the next day,
+      // data hasn't refreshed yet) → count to tomorrow's Maghrib
+      return {
+        unix: tomorrowPrayer.maghrib,
+        label: "MASA KE MAGHRIB",
+        name: "Maghrib",
+        icon: "fa-moon"
+      };
     }
 
     function startSmartCountdown() {
       if (countdownInterval) clearInterval(countdownInterval);
-      countdownInterval = setInterval(() => {
+
+      function tick() {
         const target = getNextTarget();
         document.getElementById("countdown-header").textContent = target.label;
+
         let diff = (target.unix * 1000) - Date.now();
         if (diff < 0) diff = 0;
+
         const h = Math.floor(diff / 3600000);
         const m = Math.floor((diff % 3600000) / 60000);
         const s = Math.floor((diff % 60000) / 1000);
+
         document.getElementById("hours").textContent = String(h).padStart(2, '0');
         document.getElementById("minutes").textContent = String(m).padStart(2, '0');
         document.getElementById("seconds").textContent = String(s).padStart(2, '0');
+
         const timeStr = new Date(target.unix * 1000).toLocaleTimeString('ms-MY', {hour: '2-digit', minute: '2-digit'});
         document.getElementById("target-time").textContent = timeStr;
         document.getElementById("target-name").innerHTML = `• ${target.name}`;
         document.getElementById("target-icon").className = `fa-solid ${target.icon} text-xl text-emerald-300`;
-      }, 1000);
+      }
+
+      tick(); // run immediately so there's no 1-second blank
+      countdownInterval = setInterval(tick, 1000);
     }
 
     function safeTime(timeUnix) {
@@ -285,6 +349,8 @@
 
       const list = document.getElementById("prayer-list");
       const imsakTime = todayPrayer.imsak || (todayPrayer.fajr - 600);
+      const nowSec = Math.floor(Date.now() / 1000);
+
       const prayers = [
         {name: "Imsak", time: imsakTime, icon: "🌙"},
         {name: "Subuh", time: todayPrayer.fajr, icon: "🌅"},
@@ -297,13 +363,16 @@
 
       let html = "";
       prayers.forEach(p => {
+        // Highlight the next upcoming prayer
+        const isNext = p.time && p.time > nowSec &&
+          prayers.filter(x => x.time && x.time > nowSec)[0]?.name === p.name;
         html += `
-                    <div class="flex items-center justify-between px-4 sm:px-5 py-4 glass rounded-2xl">
+                    <div class="flex items-center justify-between px-4 sm:px-5 py-4 glass rounded-2xl ${isNext ? 'border border-emerald-400/60 bg-emerald-900/20' : ''}">
                         <div class="flex items-center gap-x-4">
                             <span class="text-3xl">${p.icon}</span>
-                            <span class="font-medium">${p.name}</span>
+                            <span class="font-medium ${isNext ? 'text-emerald-300' : ''}">${p.name}</span>
                         </div>
-                        <span class="font-mono text-xl">${safeTime(p.time)}</span>
+                        <span class="font-mono text-xl ${isNext ? 'text-emerald-300' : ''}">${safeTime(p.time)}</span>
                     </div>`;
       });
       list.innerHTML = html;
@@ -318,19 +387,24 @@
     function updateDateDisplay() {
       const now = new Date();
       const options = {weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'};
-      document.getElementById("gregorian-date").textContent = now.toLocaleDateString('ms-MY', options).replace(',', '');
-      if (todayPrayer) document.getElementById("hijri-date").textContent = todayPrayer.hijri || "";
+      document.getElementById("gregorian-date").textContent =
+        now.toLocaleDateString('ms-MY', options).replace(',', '');
+      if (todayPrayer) {
+        document.getElementById("hijri-date").textContent = todayPrayer.hijri || "";
+      }
     }
 
     function showZoneModal() {
       const modal = document.getElementById("modal-overlay");
-      modal.classList.remove("hidden"); modal.classList.add("flex");
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
       renderZoneList(zonesData);
     }
 
     function hideZoneModal() {
       const modal = document.getElementById("modal-overlay");
-      modal.classList.add("hidden"); modal.classList.remove("flex");
+      modal.classList.add("hidden");
+      modal.classList.remove("flex");
     }
 
     function renderZoneList(filtered) {
