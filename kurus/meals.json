@@ -123,5 +123,15 @@
         "id": 25,
         "name": "Wedges (per 100g)",
         "calories": 140.0
+    },
+    {
+        "id": 26,
+        "name": "Nasi Goreng Cina (per 100g)",
+        "calories": 160.0
+    },
+    {
+        "id": 27,
+        "name": "Nasi Goreng Kampung (per 100g)",
+        "calories": 300.0
     }
 ]
