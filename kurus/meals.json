@@ -118,5 +118,10 @@
         "id": 24,
         "name": "Rendang Nyet Berapi",
         "calories": 50.0
+    },
+    {
+        "id": 25,
+        "name": "Wedges (per 100g)",
+        "calories": 140.0
     }
 ]
